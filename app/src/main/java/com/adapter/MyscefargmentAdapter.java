@@ -77,17 +77,17 @@ public class MyscefargmentAdapter extends android.widget.BaseAdapter {
             mHolder.itemrela_id.setVisibility(View.GONE);
             mHolder.relativegrit_id.setVisibility(View.VISIBLE);
         }
-//        if (list.get(position).sceneStatus.equals("1")) {
-//            mHolder.gitemtext.setTextColor(Color.parseColor("#e2c896"));
-//            mHolder.textitem_id.setTextColor(Color.parseColor("#e2c896"));
-//            mHolder.gitemimage.setImageResource(listintwo.get(position));
-//            mHolder.imageitem_id.setImageResource(listintwo.get(position));
-//        } else {
-//            mHolder.gitemtext.setTextColor(Color.parseColor("#303030"));
-//            mHolder.textitem_id.setTextColor(Color.parseColor("#303030"));
-//            mHolder.gitemimage.setImageResource(listint.get(position));
-//            mHolder.imageitem_id.setImageResource(listint.get(position));
-//        }
+        if (list.get(position).sceneStatus.equals("1")) {
+            mHolder.gitemtext.setTextColor(Color.parseColor("#e2c896"));
+            mHolder.textitem_id.setTextColor(Color.parseColor("#e2c896"));
+            mHolder.gitemimage.setImageResource(listintwo.get(position));
+            mHolder.imageitem_id.setImageResource(listintwo.get(position));
+        } else {
+            mHolder.gitemtext.setTextColor(Color.parseColor("#303030"));
+            mHolder.textitem_id.setTextColor(Color.parseColor("#303030"));
+            mHolder.gitemimage.setImageResource(listint.get(position));
+            mHolder.imageitem_id.setImageResource(listint.get(position));
+        }
         mHolder.textitem_id.setText(list.get(position).name);
         mHolder.gitemtext.setText(list.get(position).name);
         return convertView;

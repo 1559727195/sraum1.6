@@ -310,7 +310,7 @@
     <!--关于界面需要字体-->
     <string name="next">下一步</string>
     <string name="aboutmain">关于</string>
-    <string name="about">sraum v1.5.4</string>
+    <string name="about">sraum v1.5.5</string>
     <string name="aboutone">产品介绍</string>
     <string name="abouttwo">使用帮助</string>
     <string name="aboutthree">意见反馈</string>

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -115,12 +116,29 @@ public class LamplightActivity extends Basecactivity implements SeekBar.OnSeekBa
     ImageView sucrelaimage;
     @InjectView(R.id.windspeedtwo_id)
     TextView windspeedtwo_id;
-    @InjectView(R.id.open_kong_tiao)
-    PercentRelativeLayout    open_kong_tiao;
     @InjectView(R.id.openbtn_tiao_guang)
     ImageView openbtn_tiao_guang;
     @InjectView(R.id.open_tiaoguangdeng)
     PercentRelativeLayout open_tiaoguangdeng;
+    @InjectView(R.id.rel_3_pao)
+    RelativeLayout rel_3_pao;
+    @InjectView(R.id.openbtn_kong_tiao)
+    ImageView openbtn_kong_tiao;
+    /**
+     * 空调
+     */
+    @InjectView(R.id.open_kong_tiao)
+    LinearLayout open_kong_tiao;
+    //    @InjectView(R.id.openbtn)
+//    ImageView openbtn;
+    @InjectView(R.id.close_btn_lignt_kong_tiao)
+    ImageView close_btn_light_kong_tiao;
+    @InjectView(R.id.change_btn_kong_tiao)
+    ImageView change_btn_kong_tiao;
+    /**
+     * 空调-----
+     */
+
 
     //设备类型和设备编号，token，网关编号，状态值,调光值,空调模式，空调温度
     private String type, number, boxnumber, statusflag, dimmer, modeflag = "1",
@@ -169,6 +187,22 @@ public class LamplightActivity extends Basecactivity implements SeekBar.OnSeekBa
         //点击窗帘1关闭
         curoffrelativetwo_id.setOnClickListener(this);
 
+        /**
+         * 空调
+         */
+
+        close_btn_light_kong_tiao.setOnClickListener(this);
+        //切换灯的状态
+        change_btn_kong_tiao.setOnClickListener(this);
+
+        //开灯
+        openbtn_kong_tiao.setOnClickListener(this);
+//        id_seekBar.setOnSeekBarChangeListener(this);
+        /**
+         * 空调
+         */
+
+
         //调光控制
         openbtn_tiao_guang.setOnClickListener(this);
         //暂停
@@ -211,6 +245,8 @@ public class LamplightActivity extends Basecactivity implements SeekBar.OnSeekBa
                 id_seekBar.setMax(14);
                 noairconditioned_id.setVisibility(View.VISIBLE);
                 mainairrea_id.setVisibility(View.GONE);
+                rel_3_pao.setVisibility(View.GONE);
+                open_tiaoguangdeng.setVisibility(View.GONE);
                 break;
             //窗帘
             case "4":
@@ -352,6 +388,48 @@ public class LamplightActivity extends Basecactivity implements SeekBar.OnSeekBa
                 mapflag = true;
                 getMapdevice();
                 break;
+
+            /**
+             * 空调，和调光共用开，关，切换这三个按钮
+             */
+            case R.id.close_btn_lignt_kong_tiao://close
+//                close_btn_light_kong_tiao.setImageResource(R.drawable
+//                        .guan_white_word);
+//                change_btn_kong_tiao.setImageResource(R.drawable
+//                        .change_black_word);
+//                openbtn_kong_tiao.setImageResource(R.drawable
+//                        .open_black_word);
+//                open();
+                statusflag = "0";
+                mapflag = true;
+                getMapdevice();
+                break;//关灯
+            case R.id.change_btn_kong_tiao:
+//                change_btn_kong_tiao.setImageResource(R.drawable
+//                        .change_white_word);
+//                close_btn_light_kong_tiao.setImageResource(R.drawable
+//                        .guan_black_word);
+//                openbtn_kong_tiao.setImageResource(R.drawable
+//                        .open_black_word);
+
+                statusflag = "3";
+                mapflag = true;
+                getMapdevice();
+                break;//切换灯的状态
+            case R.id.openbtn_kong_tiao://打开灯
+//                openbtn_kong_tiao.setImageResource(R.drawable
+//                        .open_white_word);
+//                change_btn_kong_tiao.setImageResource(R.drawable
+//                        .change_black_word);
+//                close_btn_light_kong_tiao.setImageResource(R.drawable
+//                        .guan_black_word);
+                statusflag = "1";
+                mapflag = true;
+                getMapdevice();
+                break;
+            /**
+             * 空调
+             */
         }
     }
 
@@ -744,6 +822,8 @@ public class LamplightActivity extends Basecactivity implements SeekBar.OnSeekBa
                                         tempimage_id.setText(temperature);
                                         id_seekBar.setProgress(Integer.parseInt(temperature) - 16);
                                     }
+
+
                                 }
                                 if (type.equals("2")) {
                                     if (dimmer != null && !dimmer.equals("")) {
@@ -866,6 +946,12 @@ public class LamplightActivity extends Basecactivity implements SeekBar.OnSeekBa
         statusopen.setImageResource(R.drawable.hopen);
         statusflag = "1";
         statusbo = false;
+
+        openbtn_kong_tiao.setImageResource(R.drawable
+                .open_black_word);
+        close_btn_light_kong_tiao.setImageResource(R.drawable
+                .guan_white_word);
+
     }
 
     /*非窗帘全开状态设置*/
@@ -880,6 +966,10 @@ public class LamplightActivity extends Basecactivity implements SeekBar.OnSeekBa
         statusopen.setImageResource(R.drawable.hairclose_word);
         statusflag = "0";
         statusbo = true;
+        close_btn_light_kong_tiao.setImageResource(R.drawable
+                .guan_black_word);
+        openbtn_kong_tiao.setImageResource(R.drawable
+                .open_white_word);
     }
 
     /*窗帘各个开关状态设置*/

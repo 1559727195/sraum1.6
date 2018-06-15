@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -106,7 +107,7 @@ public class AddlamplightActivity extends Basecactivity implements SeekBar.OnSee
      * 空调
      */
     @InjectView(R.id.open_kong_tiao)
-    RelativeLayout open_kong_tiao;
+    LinearLayout open_kong_tiao;
     //    @InjectView(R.id.openbtn)
 //    ImageView openbtn;
     @InjectView(R.id.close_btn_lignt_kong_tiao)

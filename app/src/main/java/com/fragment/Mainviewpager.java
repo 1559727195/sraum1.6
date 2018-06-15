@@ -335,6 +335,7 @@ public class Mainviewpager extends Basecfragment implements ViewPager.OnPageChan
         });
 
 
+
         addmac_id = (RelativeLayout) v.findViewById(R.id.addmac_id);
         addmac_id.setOnClickListener(new View.OnClickListener() {
             @Override

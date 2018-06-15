@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,8 @@ import com.AddTogenInterface.AddTogglenInterfacer;
 import com.Util.ApiHelper;
 import com.Util.DialogUtil;
 import com.Util.IntentUtil;
+import com.Util.LogUtil;
+import com.Util.MusicUtil;
 import com.Util.MyOkHttp;
 import com.Util.Mycallback;
 import com.Util.SharedPreferencesUtil;
@@ -86,6 +90,9 @@ public class SceneFragment extends Basecfragment implements
     private TextView gitemtext, textitem_id;
     private ImageView gitemimage, imageitem_id;
     private int index_toggen;
+    private String loginPhone;
+    private boolean vibflag;
+    private boolean musicflag;
 
     @Override
     protected int viewId() {
@@ -98,6 +105,11 @@ public class SceneFragment extends Basecfragment implements
         myscneaddcircle_id.setVisibility(View.GONE);
         boxNumber = (String) SharedPreferencesUtil.getData(getActivity(), "boxnumber", "");
         mainfragmentActivity = (MainfragmentActivity) getActivity();
+        loginPhone = (String) SharedPreferencesUtil.getData(getActivity(), "loginPhone", "");
+        SharedPreferences preferences = getActivity().getSharedPreferences("sraum" + loginPhone,
+                Context.MODE_PRIVATE);
+        vibflag = preferences.getBoolean("vibflag", false);
+        musicflag = preferences.getBoolean("musicflag", false);
         addDialog();
         gritview_id.setSelector(new ColorDrawable(Color.TRANSPARENT));
         gritview_id.setOnItemClickListener(this);
@@ -116,7 +128,7 @@ public class SceneFragment extends Basecfragment implements
                 super.onRefresh(isPullDown);
                 String boxnumberre = TokenUtil.getBoxnumber(getActivity());
                 if (boxnumberre.equals("")) {
-                    Log.e("zhu","没有网关");
+                    Log.e("zhu", "没有网关");
                     scenelist.clear();
                     listint.clear();
                     listintwo.clear();
@@ -171,6 +183,7 @@ public class SceneFragment extends Basecfragment implements
 
     /**
      * 拿到所有的场景
+     *
      * @param map
      */
     private void get_all_scene(final Map<String, Object> map) {
@@ -296,20 +309,20 @@ public class SceneFragment extends Basecfragment implements
 //        boolean flag = TokenUtil.getTokenflag(getActivity());
         String boxnumberre = TokenUtil.getBoxnumber(getActivity());
 //        if (flag) {
-            if (boxnumberre.equals("")) {
-                scenelist.clear();
-                listint.clear();
-                listintwo.clear();
-                adapter = new MyscefargmentAdapter(getActivity(), scenelist, listint, listintwo, true);
-                gritview_id.setAdapter(adapter);
-                if (scenelist.size() == 0) {
-                    addmacrela_id.setVisibility(View.VISIBLE);
-                } else {
-                    addmacrela_id.setVisibility(View.GONE);
-                }
+        if (boxnumberre.equals("")) {
+            scenelist.clear();
+            listint.clear();
+            listintwo.clear();
+            adapter = new MyscefargmentAdapter(getActivity(), scenelist, listint, listintwo, true);
+            gritview_id.setAdapter(adapter);
+            if (scenelist.size() == 0) {
+                addmacrela_id.setVisibility(View.VISIBLE);
             } else {
-                getData(1);
+                addmacrela_id.setVisibility(View.GONE);
             }
+        } else {
+            getData(1);
+        }
 //        }
     }
 
@@ -396,6 +409,7 @@ public class SceneFragment extends Basecfragment implements
 
     /**
      * 场景控制
+     *
      * @param position
      * @param map
      */
@@ -440,21 +454,31 @@ public class SceneFragment extends Basecfragment implements
                 ToastUtil.showToast(getActivity(), "操作成功");
                 listtype.set(position, status);
                 String string = listtype.get(position);
-//                if (string.equals("1")) {
-//                    gitemtext.setTextColor(Color.parseColor("#e2c896"));
-//                    gitemimage.setImageResource(listintwo.get(position));
-//                    textitem_id.setTextColor(Color.parseColor("#e2c896"));
-//                    imageitem_id.setImageResource(listintwo.get(position));
-//                } else {
-//                    gitemtext.setTextColor(Color.parseColor("#303030"));
-//                    gitemimage.setImageResource(listint.get(position));
-//                    textitem_id.setTextColor(Color.parseColor("#303030"));
-//                    imageitem_id.setImageResource(listint.get(position));
-//                }
+                if (string.equals("1")) {
+                    gitemtext.setTextColor(Color.parseColor("#e2c896"));
+                    gitemimage.setImageResource(listintwo.get(position));
+                    textitem_id.setTextColor(Color.parseColor("#e2c896"));
+                    imageitem_id.setImageResource(listintwo.get(position));
+                } else {
+                    gitemtext.setTextColor(Color.parseColor("#303030"));
+                    gitemimage.setImageResource(listint.get(position));
+                    textitem_id.setTextColor(Color.parseColor("#303030"));
+                    imageitem_id.setImageResource(listint.get(position));
+                }
 
 
                 //getData(null);
                 //adapter.changeState(position);
+                if (vibflag) {
+                    Vibrator vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(200);
+                }
+                if (musicflag) {
+                    LogUtil.i("铃声响起");
+                    MusicUtil.startMusic(getActivity(), 1);
+                } else {
+                    MusicUtil.stopMusic(getActivity());
+                }
             }
 
             @Override

@@ -37,6 +37,7 @@ public class Mycallback extends StringCallback implements ApiResult {
         this.dialogUtil = dialogUtil;
         this.addTogglenInterfacer = addTogglenInterfacer;
     }
+
     @Override
     public void onError(Call call, Exception e, int id) {
         LogUtil.i("这是异常error", e.getMessage() + "");

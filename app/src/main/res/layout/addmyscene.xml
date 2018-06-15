@@ -7,6 +7,16 @@
     <include
         android:id="@+id/backroom_id"
         layout="@layout/backtitle" />
+    <TextView
+        android:id="@+id/title_scene_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="@dimen/p30"
+        android:text="场景联动"
+        android:textColor="@color/e30"
+        android:textSize="@dimen/p28" />
 
     <ImageView
         android:id="@+id/lione"

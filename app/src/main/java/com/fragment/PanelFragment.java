@@ -70,7 +70,6 @@ public class PanelFragment extends Basecfragment {
         mySlidingMenu = mySlidingMenu1;
         newFragment.setArguments(bundle);
         return newFragment;
-
     }
 
     private void chageSlideMenu() {

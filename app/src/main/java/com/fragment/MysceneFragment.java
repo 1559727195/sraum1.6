@@ -330,6 +330,9 @@ public class MysceneFragment extends Basecfragment implements AdapterView.OnItem
             public void onSuccess(User user) {
                 super.onSuccess(user);
                 refresh_view.stopRefresh();
+                scenelist.clear();
+                listint.clear();
+                listintwo.clear();
                 scenelist = user.sceneList;
                 for (User.scenelist ud : user.sceneList) {
                     listtype.add(ud.sceneStatus);

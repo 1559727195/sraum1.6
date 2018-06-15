@@ -52,6 +52,7 @@
                 android:layout_below="@+id/sraum_txt"
                 app:roundProgressColor="#39B77A"
                 app:textColor="@color/smssdk_gray"
+                app:content = "s"
                 app:textIsDisplayable="true"
                 app:roundWidth="1dip"
                 android:layout_marginTop="15dp"

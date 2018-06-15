@@ -157,6 +157,7 @@ public class AddsignsceneActivity extends Basecactivity implements
 
     /**
      * 添加Sraum场景
+     *
      * @param map
      */
     private void addSraumScene(final Map<String, Object> map) {
@@ -216,6 +217,7 @@ public class AddsignsceneActivity extends Basecactivity implements
 
     /**
      * sraum_updateScene
+     *
      * @param mapedi
      */
     private void sraum_updateScene(final Map<String, Object> mapedi) {
@@ -267,10 +269,11 @@ public class AddsignsceneActivity extends Basecactivity implements
 
     /**
      * 添加场景测试
+     *
      * @param pullToRefreshLayout
      * @param mapdevice
      */
-    private void add_sign_scene(final PullToRefreshLayout pullToRefreshLayout,final Map<String, String> mapdevice) {
+    private void add_sign_scene(final PullToRefreshLayout pullToRefreshLayout, final Map<String, String> mapdevice) {
         MyOkHttp.postMapString(ApiHelper.sraum_getAllDevice, mapdevice, new Mycallback(new AddTogglenInterfacer() {
             @Override
             public void addTogglenInterfacer() {
@@ -383,7 +386,7 @@ public class AddsignsceneActivity extends Basecactivity implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-         boolean isStatus_back = false;
+        boolean isStatus_back = false;
         View v = parent.getChildAt(position - maclistview_id.getFirstVisiblePosition());
         cb = (CheckBox) v.findViewById(R.id.checkbox);
         cb.toggle();
@@ -421,7 +424,7 @@ public class AddsignsceneActivity extends Basecactivity implements
             }
 
             Bundle bundle = new Bundle();
-            bundle.putBoolean("actflag",isSelect);//这个是添加场景和编辑场景的标志
+            bundle.putBoolean("actflag", isSelect);//这个是添加场景和编辑场景的标志
             bundle.putString("type", deviceList.get(position).type);
             bundle.putBoolean("isStatus_back", isStatus_back);//说明是历史按钮记录，
             bundle.putString("number", deviceList.get(position).number);

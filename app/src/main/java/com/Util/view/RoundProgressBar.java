@@ -27,6 +27,7 @@ public class RoundProgressBar extends View {
      * 内圆的半径
      */
     private final float roundWidth_inner;
+    private  String content = "%";
 
     /**
      * 画笔对象的引用
@@ -107,6 +108,7 @@ public class RoundProgressBar extends View {
         max = mTypedArray.getInteger(R.styleable.RoundProgressBar_max, 100);
         textIsDisplayable = mTypedArray.getBoolean(R.styleable.RoundProgressBar_textIsDisplayable, true);
         style = mTypedArray.getInt(R.styleable.RoundProgressBar_style, 0);
+        content = (String)mTypedArray.getString(R.styleable.RoundProgressBar_content);
 
         mTypedArray.recycle();
     }
@@ -139,9 +141,9 @@ public class RoundProgressBar extends View {
         paint.setTypeface(Typeface.SERIF); //设置字体
         int percent = (int) (((float) progress / (float) max) * 100);  //中间的进度百分比，先转换成float在进行除法运算，不然都为0
 //        float textWidth = paint.measureText(percent + "%");   //测量字体宽度，我们需要根据字体的宽度设置在圆环中间
-        float textWidth = paint.measureText((int) progress + "%");   //测量字体宽度，我们需要根据字体的宽度设置在圆环中间
+        float textWidth = paint.measureText((int) progress + content);   //测量字体宽度，我们需要根据字体的宽度设置在圆环中间
         if (textIsDisplayable && progress <= max && style == STROKE) {
-            canvas.drawText((int) progress + "%", centre - textWidth / 2, centre + textSize / 2, paint); //画出进度百分比
+            canvas.drawText((int) progress + content, centre - textWidth / 2, centre + textSize / 2, paint); //画出进度百分比
         }
 
 

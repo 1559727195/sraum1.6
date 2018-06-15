@@ -11,8 +11,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/p16"
-   android:layout_centerVertical="true"
         android:background="@drawable/back" />
 
     <TextView
@@ -24,22 +24,25 @@
         android:text=""
         android:textColor="@color/e30"
         android:textSize="@dimen/p28" />
+
     <RelativeLayout
+        android:id="@+id/search_image_rel"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
-        android:visibility="gone"
-        android:id="@+id/search_image_rel"></RelativeLayout>
-<ImageView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:layout_centerVertical="true"
-    android:id="@+id/search_image"
-    android:paddingRight="10dp"
-    android:visibility="gone"
-    android:paddingLeft="20dp"
-    android:src="@drawable/see_icon"/>
+        android:visibility="gone"></RelativeLayout>
+
+    <ImageView
+        android:id="@+id/search_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/see_icon"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/backsave"
         android:layout_width="@dimen/p200"

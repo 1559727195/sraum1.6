@@ -382,66 +382,75 @@
             <!--</intent-filter>-->
         </activity>
 
-        <activity android:name=".SelectZigbeeDeviceActivity"
+        <activity
+            android:name=".SelectZigbeeDeviceActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
 
         <activity
             android:name=".AddWifiDevActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".AddZigbeeDevActivity"
+        <activity
+            android:name=".AddZigbeeDevActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".WaterSensorActivity"
+        <activity
+            android:name=".WaterSensorActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".TVShowActivity"
+        <activity
+            android:name=".TVShowActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".AirControlActivity"
+        <activity
+            android:name=".AirControlActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".AddZigbeeDeviceScucessActivity"
+        <activity
+            android:name=".AddZigbeeDeviceScucessActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".Pm25Activity"
+        <activity
+            android:name=".Pm25Activity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".SleepModeActivity"
+        <activity
+            android:name=".SleepModeActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
-        <activity android:name=".HostoryPmActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".HostoryPmActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".DeviceModelTimeSelectActivity"
+        <activity
+            android:name=".DeviceModelTimeSelectActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.picker"
-            ></activity>
+            android:theme="@style/Theme.picker"></activity>
 
-        <activity android:name=".ConnWifiActivity"
+        <activity
+            android:name=".ConnWifiActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".SelectSensorActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".DeviceExcuteOpenActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

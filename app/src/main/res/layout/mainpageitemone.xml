@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/clore3e">
 
     <include
@@ -15,6 +15,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/title"
         android:visibility="gone"
+
         android:layout_marginTop="@dimen/p90">
 
         <RelativeLayout
@@ -84,13 +85,13 @@
             android:id="@+id/id_seekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/windspeedrelative"
+            android:layout_marginTop="30dp"
             android:maxHeight="20dp"
             android:minHeight="20dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:progressDrawable="@drawable/bg_seekbar"
-            android:layout_marginTop="30dp"
-            android:layout_below="@+id/windspeedrelative"
             android:thumb="@drawable/hslide_circle" />
 
         <android.support.percent.PercentRelativeLayout
@@ -99,136 +100,138 @@
             android:layout_height="70dp"
 
             android:layout_below="@+id/id_seekBar"
-            android:layout_marginTop="50dp"
-            >
+            android:layout_marginTop="50dp">
+
             <ImageView
                 android:id="@+id/openbtn_tiao_guang"
                 android:layout_width="81dp"
                 android:layout_height="81dp"
-                android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/open_black_word"
-                />
+                android:layout_centerVertical="true"
+                android:src="@drawable/open_black_word" />
         </android.support.percent.PercentRelativeLayout>
-        <android.support.percent.PercentRelativeLayout
+
+        <LinearLayout
             android:id="@+id/open_kong_tiao"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_below="@+id/id_seekBar"
-            android:layout_marginTop="50dp"
-            >
-            <RelativeLayout   android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp">
+
+            <RelativeLayout
+                android:id="@+id/rel_1_pao"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:id="@+id/rel_1_pao"
-                app:layout_widthPercent="33%">
+                android:layout_weight="1">
+
                 <ImageView
                     android:id="@+id/openbtn_kong_tiao"
                     android:layout_width="81dp"
                     android:layout_height="81dp"
-                    android:src="@drawable/open_black_word"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/open_black_word" />
             </RelativeLayout>
 
-            <RelativeLayout   android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <RelativeLayout
                 android:id="@+id/rel_2_pao"
-                app:layout_widthPercent="33%"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/rel_1_pao"
-                android:layout_toEndOf="@+id/rel_1_pao">
-                <ImageView
-                    android:layout_width="81dp"
-                    android:layout_height="81dp"
-                    android:id="@+id/close_btn_lignt_kong_tiao"
-                    android:src="@drawable/guan_black_word"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
-            </RelativeLayout>
-
-            <RelativeLayout   android:layout_width="wrap_content"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/rel_2_pao"
-                android:id="@+id/rel_3_pao"
-                app:layout_widthPercent="33%">
+                android:layout_alignParentTop="true"
+                android:layout_weight="1">
+
                 <ImageView
+                    android:id="@+id/close_btn_lignt_kong_tiao"
                     android:layout_width="81dp"
                     android:layout_height="81dp"
-                    android:id="@+id/change_btn_kong_tiao"
-                    android:src="@drawable/change_black_word"
-                    android:layout_centerInParent="true"
-                    />
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/guan_black_word" />
             </RelativeLayout>
 
-        </android.support.percent.PercentRelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rel_3_pao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:id="@+id/change_btn_kong_tiao"
+                    android:layout_width="81dp"
+                    android:layout_height="81dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/change_black_word" />
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <android.support.percent.PercentRelativeLayout
             android:id="@+id/open_xin_feng"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_alignParentBottom="true"
-            android:visibility="gone"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="32dp">
+            android:layout_marginBottom="32dp"
+            android:visibility="gone">
 
-            <RelativeLayout   android:layout_width="wrap_content"
+            <RelativeLayout
                 android:id="@+id/rel_1_xin"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 app:layout_widthPercent="25%">
+
                 <ImageView
                     android:id="@+id/openbtn_xin_feng"
                     android:layout_width="81dp"
                     android:layout_height="81dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/open_black_word"
-                    />
+                    android:src="@drawable/open_black_word" />
 
             </RelativeLayout>
 
-            <RelativeLayout   android:layout_width="wrap_content"
+            <RelativeLayout
                 android:id="@+id/rel_2_xin"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/rel_1_xin"
                 app:layout_widthPercent="25%">
 
                 <ImageView
+                    android:id="@+id/close_btn_lignt_xin_feng"
                     android:layout_width="81dp"
                     android:layout_height="81dp"
-                    android:id="@+id/close_btn_lignt_xin_feng"
-                    android:src="@drawable/guan_black_word"
-                    />
+                    android:src="@drawable/guan_black_word" />
             </RelativeLayout>
 
 
-            <RelativeLayout   android:layout_width="wrap_content"
+            <RelativeLayout
                 android:id="@+id/rel_3_xin"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/rel_2_xin"
                 app:layout_widthPercent="25%">
 
                 <ImageView
+                    android:id="@+id/change_btn_xin_feng"
                     android:layout_width="81dp"
                     android:layout_height="81dp"
-                    android:id="@+id/change_btn_xin_feng"
-                    android:src="@drawable/change_black_word"
                     android:layout_centerVertical="true"
-                    />
+                    android:src="@drawable/change_black_word" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/windspeedrelative_xin_feng"
                 android:layout_width="81dp"
                 android:layout_height="81dp"
-                android:background="@drawable/hsmall_circle"
                 android:layout_toRightOf="@+id/rel_3_xin"
-                app:layout_widthPercent="19.5%"
-                >
+                android:background="@drawable/hsmall_circle"
+                app:layout_widthPercent="19.5%">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -244,10 +247,10 @@
             android:id="@+id/windspeedrelative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/hsmall_circle"
             android:layout_below="@+id/hbigcirclerelative"
             android:layout_toLeftOf="@+id/hbigcirclerelative"
-            android:layout_toStartOf="@+id/hbigcirclerelative">
+            android:layout_toStartOf="@+id/hbigcirclerelative"
+            android:background="@drawable/hsmall_circle">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -261,10 +264,10 @@
             android:id="@+id/patternrelative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/hsmall_circle"
             android:layout_below="@+id/hbigcirclerelative"
+            android:layout_toEndOf="@+id/hbigcirclerelative"
             android:layout_toRightOf="@+id/hbigcirclerelative"
-            android:layout_toEndOf="@+id/hbigcirclerelative">
+            android:background="@drawable/hsmall_circle">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -278,12 +281,12 @@
             android:id="@+id/dimmerrelative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/hsmall_black"
-            android:layout_below="@+id/id_seekBar"
             android:layout_alignLeft="@+id/windspeedrelative"
             android:layout_alignStart="@+id/windspeedrelative"
-            android:visibility="gone"
-            android:layout_marginTop="19dp">
+            android:layout_below="@+id/id_seekBar"
+            android:layout_marginTop="19dp"
+            android:background="@drawable/hsmall_black"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/dimmerimageview"
@@ -298,13 +301,13 @@
             android:id="@+id/switchrelative"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/id_seekBar"
+            android:layout_alignRight="@+id/id_seekBar"
+            android:layout_alignTop="@+id/dimmerrelative"
+            android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
             android:background="@drawable/hsmall_black"
-            android:layout_alignTop="@+id/dimmerrelative"
-            android:layout_alignRight="@+id/id_seekBar"
-            android:layout_alignEnd="@+id/id_seekBar"
-            android:visibility="gone"
-            android:layout_marginEnd="12dp">
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/statusopen"
@@ -315,63 +318,71 @@
                 android:background="@drawable/hairclose_word" />
         </RelativeLayout>
     </RelativeLayout>
+
     <android.support.percent.PercentRelativeLayout
         android:id="@+id/open"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:visibility="gone"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        >
-       <RelativeLayout   android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_centerVertical="true"
-           android:id="@+id/rel_1"
-           app:layout_widthPercent="33%">
-           <ImageView
-               android:id="@+id/openbtn"
-               android:layout_width="81dp"
-               android:layout_centerInParent="true"
-               android:src="@drawable/open_black_word"
-               android:layout_height="81dp" />
-       </RelativeLayout>
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/rel_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            app:layout_widthPercent="33%">
+
+            <ImageView
+                android:id="@+id/openbtn"
+                android:layout_width="81dp"
+                android:layout_height="81dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/open_black_word" />
+        </RelativeLayout>
 
 
-        <RelativeLayout   android:layout_width="wrap_content"
+        <RelativeLayout
             android:id="@+id/rel_2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/rel_1"
             app:layout_widthPercent="33%">
+
             <ImageView
+                android:id="@+id/close_btn_lignt"
                 android:layout_width="81dp"
                 android:layout_height="81dp"
-                android:id="@+id/close_btn_lignt"
-                android:src="@drawable/guan_black_word"
-                android:layout_centerInParent="true"/>
-            </RelativeLayout>
+                android:layout_centerInParent="true"
+                android:src="@drawable/guan_black_word" />
+        </RelativeLayout>
 
 
-        <RelativeLayout   android:layout_width="wrap_content"
+        <RelativeLayout
             android:id="@+id/rel_3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/rel_2"
             app:layout_widthPercent="33%">
+
             <ImageView
+                android:id="@+id/change_btn"
                 android:layout_width="81dp"
                 android:layout_height="81dp"
-                android:id="@+id/change_btn"
-                android:src="@drawable/change_black_word"
-                android:layout_centerInParent="true" />
-            </RelativeLayout>
+                android:layout_centerInParent="true"
+                android:src="@drawable/change_black_word" />
+        </RelativeLayout>
 
     </android.support.percent.PercentRelativeLayout>
+
     <RelativeLayout
         android:id="@+id/mainairrea_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+      >
 
         <RelativeLayout
             android:id="@+id/cuereaone_id"

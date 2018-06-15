@@ -75,7 +75,7 @@ public class SelectZigbeeDeviceActivity extends Basecactivity {
     };
 
     //        //type：设备类型，1-灯，2-调光，3-空调，4-窗帘，5-新风，6-地暖,7-门磁，8-人体感应，9-水浸检测器，10-入墙PM2.5
-    //11-紧急按钮，
+    //11-紧急按钮，12-久坐报警器，13-烟雾报警器，14-天然气报警器，15-智能门锁，16-直流电阀机械手
 
     private int[] icon_wifi = {
             R.drawable.hongwai_s

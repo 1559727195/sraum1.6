@@ -1,5 +1,6 @@
 package com.massky.sraum;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.Selection;
@@ -48,6 +49,8 @@ public class MysceneActivity extends Basecactivity implements AdapterView.OnItem
     ClearEditText scenename;
     @InjectView(R.id.nextbtn)
     Button nextbtn;
+    @InjectView(R.id.title_scene_link)
+    TextView title_scene_link;
     private int[] icon = {R.drawable.add_scene_homein, R.drawable.add_scene_homein,
             R.drawable.add_scene_cup, R.drawable.add_scene_meeting,
             R.drawable.add_scene_homein, R.drawable.add_scene_homein, R.drawable.add_scene_homein,
@@ -77,6 +80,7 @@ public class MysceneActivity extends Basecactivity implements AdapterView.OnItem
     @Override
     protected void onView() {
         dialogUtil = new DialogUtil(this);
+        title_scene_link.setOnClickListener(this);
         InputFilter[] filters = new InputFilter[]{new LimitCharLengthFilter(12)};
         scenename.setFilters(filters);
         bundle = new Bundle();
@@ -103,6 +107,9 @@ public class MysceneActivity extends Basecactivity implements AdapterView.OnItem
                 } else {
                     verify_sceneName_isExist();
                 }
+                break;
+            case R.id.title_scene_link:
+                startActivity(new Intent(MysceneActivity.this,SelectSensorActivity.class));
                 break;
         }
     }
