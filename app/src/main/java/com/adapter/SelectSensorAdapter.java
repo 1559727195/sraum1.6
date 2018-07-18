@@ -27,7 +27,7 @@ public class SelectSensorAdapter extends BaseAdapter {
     // 用来控制CheckBox的选中状况
     private static HashMap<Integer, Boolean> isSelected = new HashMap<>();
 
-    public SelectSensorAdapter(Context context, List<Map> list, List<Integer> listint, List<Integer> listintwo,List<Boolean> list_bool) {
+    public SelectSensorAdapter(Context context, List<Map> list, List<Integer> listint, List<Integer> listintwo, List<Boolean> list_bool) {
         super(context, list);
         this.list = list;
         this.listint = listint;
@@ -40,7 +40,7 @@ public class SelectSensorAdapter extends BaseAdapter {
     // 初始化isSelected的数据
     private void initDate() {
         for (int i = 0; i < list_bool.size(); i++) {
-            getIsSelected().put(i, list_bool.get(i));
+            getIsSelected().put(i, false);
         }
     }
 
@@ -78,16 +78,21 @@ public class SelectSensorAdapter extends BaseAdapter {
 //        });
         viewHolderContentType.checkbox.setChecked(getIsSelected().get(position));
         if (getIsSelected().get(position)) {
-
+            viewHolderContentType.img_guan_scene.setImageResource(listintwo.get(position));
         } else {
-
+            viewHolderContentType.img_guan_scene.setImageResource(listint.get(position));
         }
-      return convertView;
-   }
+        return convertView;
+    }
 
     public static HashMap<Integer, Boolean> getIsSelected() {
         return isSelected;
     }
+
+    public static void setIsSelected(HashMap<Integer, Boolean> isSelected) {
+        SelectSensorAdapter.isSelected = isSelected;
+    }
+
 
     class ViewHolderContentType {
         ImageView img_guan_scene;

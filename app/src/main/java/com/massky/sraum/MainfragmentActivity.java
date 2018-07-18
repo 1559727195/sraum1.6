@@ -3,6 +3,8 @@ package com.massky.sraum;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -44,23 +46,35 @@ import com.fragment.AboutFragment;
 import com.fragment.LeftFragment;
 import com.fragment.MacdeviceFragment;
 import com.fragment.Mainviewpager;
+import com.fragment.MessageFragment;
+import com.fragment.MyDeviceFragment;
 import com.fragment.MyRoomFragment;
 import com.fragment.MygatewayFragment;
 import com.fragment.MysceneFragment;
 import com.fragment.MysetFragment;
 import com.fragment.PanelFragment;
 import com.google.gson.Gson;
-import com.j256.ormlite.dao.Dao;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jpush.Constants;
 import com.jpush.ExampleUtil;
 import com.permissions.RxPermissions;
+import com.ypy.eventbus.EventBus;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import cn.jpush.android.api.JPushInterface;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import okhttp3.Call;
 
+import static com.fragment.LeftFragment.MESSAGE_TONGZHI;
 import static com.massky.sraum.R.id.addscene_id;
+
 /**
  * Created by masskywcy on 2016-09-05.
  */
@@ -80,7 +94,7 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
     private Fragment mContent;
     public SlidingMenu menu;
     PopupWindow popupWindow;
-//    private RelativeLayout addmac_id, addscene_id, addroom_id;
+    //    private RelativeLayout addmac_id, addscene_id, addroom_id;
     //主要保存当前显示的是第几个fragment的索引值
     private Mainviewpager mainviewpager;
     private MygatewayFragment mygatewayFragment;
@@ -98,6 +112,8 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
     private String usertype, Version;
     private int versionCode;
     private DialogUtil dialogUtil;
+    private MessageFragment messagefragment;
+    private MyDeviceFragment mydevicefragment;
 
     @Override
     protected int viewId() {
@@ -106,18 +122,7 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
 
     @Override
     protected void onView() {
-        /*
-        *  usertype = (String) SharedPreferencesUtil.getData(MainfragmentActivity.this, "usertype", "");
-        if (usertype != null) {
-            if (usertype.equals("2")) {
-                setTabSelection(3);
-            } else if (usertype.equals("1")) {
-                setTabSelection(0);
-            }
-        }*/
-
         dialogUtil = new DialogUtil(this);
-
         initPermission();
         //在这里发送广播，expires_in是86400->24小时
         String expires_in = (String) SharedPreferencesUtil.getData(MainfragmentActivity.this, "expires_in", "");
@@ -134,7 +139,7 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
             usertype = IntentUtil.getIntentString(MainfragmentActivity.this, "addflag");
             LogUtil.eLength("这是数据", usertype + "s数据问题");
             if (usertype.equals("1")) {
-                setTabSelection(3);
+                setTabSelection(4);
             } else {
                 setTabSelection(0);
             }
@@ -147,8 +152,56 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
             updateApk();
         }
         registerMessageReceiver();
+        init_notifacation();//通知初始化
     }
 
+    private void init_notifacation() {
+        Intent intent = getIntent();
+        if (null != intent) {
+            Bundle bundle = getIntent().getBundleExtra(Constants.EXTRA_BUNDLE);
+            String title = null;//JingRuiApp
+            String content = null;//2017-08-31 10:40:16,客厅,模块报警
+            if (bundle != null) {
+                init_nofication(intent);
+            }
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        getNotify(intent);
+        setIntent(intent);
+    }
+
+    private void getNotify(Intent intent) {
+        init_nofication(intent); //暂时注销掉，fragment->childactivity-> fragment->mainactivity时,执行
+        // 这里不是用的commit提交，用的commitAllowingStateLoss方式。commit不允许后台执行，不然会报Deferring update until onResume 错误
+        super.onNewIntent(intent);
+    }
+
+    /**
+     * 初始化通知
+     *
+     * @param intent
+     */
+    private void init_nofication(Intent intent) {
+        if (null != intent) {
+            Bundle bundle = getIntent().getBundleExtra(Constants.EXTRA_BUNDLE);
+//            String title = null;//JingRuiApp
+//            String content = null;//2017-08-31 10:40:16,客厅,模块报警
+            if (bundle != null) {
+                String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);////{"type":"2"}
+                JSONObject json = null;
+                try {
+                    json = new JSONObject(extras);
+                    String type = json.getString("type");
+                    sendBroad(type);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     //for receive customer msg from jpush server
     private MessageReceiver mMessageReceiver;
@@ -165,7 +218,7 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
     }
 
-    public  static class MessageReceiver extends BroadcastReceiver {
+    public static class MessageReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -178,35 +231,26 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
                     if (!ExampleUtil.isEmpty(extras)) {
                         showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
                     }
-                    //说明别处已经登录
-                    //先调用一下
-//                    dialog.show();
-//                    new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            MyService.stopNet();
-////                            String result = null;
-////                            try {
-////                                result = jsonObject.getString("result");
-////                                if ("ok".equals(result)) {
-//////                ToastUtil.showToast(MainfragmentActivity.this,"智能家居退出成功");
-////                                    Log.e("fei","result:" + result);
-////                                }
-////                            } catch (JSONException e) {
-////                                e.printStackTrace();
-////                            }
-//                        }
-//                    }).start();
-                    boolean loginflag  = (boolean) SharedPreferencesUtil.getData(CommonData.mNowContext, "loginflag", false);
+                    boolean loginflag = (boolean) SharedPreferencesUtil.getData(CommonData.mNowContext, "loginflag", false);
 //                    ToastUtil.showToast(CommonData.mNowContext,"MainfragmentActivity-loginflag:" + loginflag);
-                    if(loginflag)
-                    ToastUtils.getInstances().showDialog("账号在其他地方登录，请重新登录。");
+                    if (loginflag)
+                        ToastUtils.getInstances().showDialog("账号在其他地方登录，请重新登录。");
                 }
             } catch (Exception e) {
 
             }
         }
     }
+
+    /*
+    * 通知
+    * */
+    private void sendBroad(String content) {
+        Intent mIntent = new Intent(MESSAGE_TONGZHI);
+        mIntent.putExtra("type", content);
+        sendBroadcast(mIntent);
+    }
+
 
     //拦截侧滑
     public void gotoStop() {
@@ -229,7 +273,7 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
     private void initPermission() {
         // 清空图片缓存，包括裁剪、压缩后的图片 注意:必须要在上传完成后调用 必须要获取权限
         RxPermissions permissions = new RxPermissions(this);
-        permissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.READ_EXTERNAL_STORAGE).subscribe(new Observer<Boolean>() {
+        permissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE).subscribe(new Observer<Boolean>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
@@ -264,7 +308,7 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
                     public void onSuccess(User user) {
                         super.onSuccess(user);
                         Version = user.version;
-                        Log.e("fei","Version:"+Version);
+                        Log.e("fei", "Version:" + Version);
                         int sracode = Integer.parseInt(user.versionCode);
                         if (versionCode < sracode) {
                             belowtext_id.setText("版本更新至" + Version);
@@ -324,9 +368,26 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
                 }
                 break;
             case 1:
-//                addrelative_id.setVisibility(View.GONE);
-//                addimage_id.setVisibility(View.GONE);
-//                cenimage_id.setVisibility(View.GONE);
+                // 如果MessageFragment为空，则创建一个并添加到界面上
+//                addrelative_id.setVisibility(View.VISIBLE);
+//                addimage_id.setVisibility(View.VISIBLE);
+//                cenimage_id.setVisibility(View.VISIBLE);
+//                centext_id.setVisibility(View.GONE);
+                if (messagefragment == null) {
+//                    messagefragment = new MessageFragment.newInstance(menu);
+                    messagefragment = MessageFragment.newInstance(menu);
+                    transaction.add(R.id.content_frame, messagefragment);
+                    LogUtil.i("数据", "setTabSelection: ");
+                } else {
+                    LogUtil.i("展示数据", "setTabSelection: ");
+                    transaction.show(messagefragment);
+                }
+                break;
+            case 2:
+                // 如果MessageFragment为空，则创建一个并添加到界面上
+//                addrelative_id.setVisibility(View.VISIBLE);
+//                addimage_id.setVisibility(View.VISIBLE);
+//                cenimage_id.setVisibility(View.VISIBLE);
 //                centext_id.setVisibility(View.GONE);
                 if (mygatewayFragment == null) {
                     // 如果MessageFragment为空，则创建一个并添加到界面上
@@ -337,43 +398,44 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
                     transaction.show(mygatewayFragment);
                 }
                 break;
-            case 2:
+            case 3:
+//                addrelative_id.setVisibility(View.GONE);
+//                addimage_id.setVisibility(View.GONE);
+//                cenimage_id.setVisibility(View.GONE);
+//                centext_id.setVisibility(View.GONE);
+
+                if (mydevicefragment == null) {
+//                    messagefragment = new MessageFragment.newInstance(menu);
+                    mydevicefragment = MyDeviceFragment.newInstance(menu);
+                    transaction.add(R.id.content_frame, mydevicefragment);
+                    LogUtil.i("数据", "setTabSelection: ");
+                } else {
+                    LogUtil.i("展示数据", "setTabSelection: ");
+                    transaction.show(mydevicefragment);
+                }
+                break;
+//            case 4:
 //                centext_id.setVisibility(View.VISIBLE);
 //                addrelative_id.setVisibility(View.GONE);
 //                addimage_id.setVisibility(View.GONE);
 //                cenimage_id.setVisibility(View.GONE);
 //                centext_id.setText(R.string.mac);
-                if (macdeviceFragment == null) {
-                    // 如果MessageFragment为空，则创建一个并添加到界面上
-                    macdeviceFragment = MacdeviceFragment.newInstance(menu);
-                    transaction.add(R.id.content_frame, macdeviceFragment);
-                } else {
-                    // 如果MessageFragment不为空，则直接将它显示出来
-                    transaction.show(macdeviceFragment);
-                }
-
-                macdeviceFragment.setBackToMainTitleListener(new MacdeviceFragment.BackToMainTitleListener() {
-                    @Override
-                    public void backToMainTitleLength(int length) {
-//                        centext_id.setText("智能设备" + "(" + length + ")");
-                    }
-                });
-                break;
-            case 3:
-//                centext_id.setVisibility(View.VISIBLE);
-//                addrelative_id.setVisibility(View.GONE);
-//                addimage_id.setVisibility(View.GONE);
-//                cenimage_id.setVisibility(View.GONE);
-//                centext_id.setText(R.string.scenecen);
-                if (mysceneFragment == null) {
-                    // 如果MessageFragment为空，则创建一个并添加到界面上
-                    mysceneFragment = MysceneFragment.newInstance(menu);
-                    transaction.add(R.id.content_frame, mysceneFragment);
-                } else {
-                    // 如果MessageFragment不为空，则直接将它显示出来
-                    transaction.show(mysceneFragment);
-                }
-                break;
+//                if (macdeviceFragment == null) {
+//                    // 如果MessageFragment为空，则创建一个并添加到界面上
+//                    macdeviceFragment = MacdeviceFragment.newInstance(menu);
+//                    transaction.add(R.id.content_frame, macdeviceFragment);
+//                } else {
+//                    // 如果MessageFragment不为空，则直接将它显示出来
+//                    transaction.show(macdeviceFragment);
+//                }
+//
+//                macdeviceFragment.setBackToMainTitleListener(new MacdeviceFragment.BackToMainTitleListener() {
+//                    @Override
+//                    public void backToMainTitleLength(int length) {
+////                        centext_id.setText("智能设备" + "(" + length + ")");
+//                    }
+//                });
+//                break;
             case 4:
                 if (myRoomFragment == null) {
 //                    centext_id.setVisibility(View.VISIBLE);
@@ -394,6 +456,21 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
 //                addrelative_id.setVisibility(View.GONE);
 //                addimage_id.setVisibility(View.GONE);
 //                cenimage_id.setVisibility(View.GONE);
+//                centext_id.setText(R.string.scenecen);
+                if (mysceneFragment == null) {
+                    // 如果MessageFragment为空，则创建一个并添加到界面上
+                    mysceneFragment = MysceneFragment.newInstance(menu);
+                    transaction.add(R.id.content_frame, mysceneFragment);
+                } else {
+                    // 如果MessageFragment不为空，则直接将它显示出来
+                    transaction.show(mysceneFragment);
+                }
+                break;
+            case 6:
+//                centext_id.setVisibility(View.VISIBLE);
+//                addrelative_id.setVisibility(View.GONE);
+//                addimage_id.setVisibility(View.GONE);
+//                cenimage_id.setVisibility(View.GONE);
 //                centext_id.setText(R.string.set);
                 if (mysetFragment == null) {
                     // 如果MessageFragment为空，则创建一个并添加到界面上
@@ -404,7 +481,7 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
                     transaction.show(mysetFragment);
                 }
                 break;
-            case 6:
+            case 7:
 //                centext_id.setVisibility(View.VISIBLE);
 //                addrelative_id.setVisibility(View.GONE);
 //                addimage_id.setVisibility(View.GONE);
@@ -419,28 +496,28 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
                     transaction.show(aboutFragment);
                 }
                 break;
-            case 7:
-//                centext_id.setVisibility(View.VISIBLE);
-//                addrelative_id.setVisibility(View.GONE);
-//                addimage_id.setVisibility(View.GONE);
-//                cenimage_id.setVisibility(View.GONE);
-//                centext_id.setText("我的面板");
-                if (panelFragment == null) {
-                    // 如果MessageFragment为空，则创建一个并添加到界面上
-                    panelFragment = PanelFragment.newInstance(menu);
-                    transaction.add(R.id.content_frame, panelFragment);
-                } else {
-                    // 如果MessageFragment不为空，则直接将它显示出来
-                    transaction.show(panelFragment);
-                }
-
-                panelFragment.setBackToMainTitleListener(new PanelFragment.BackToMainTitleListener() {
-                    @Override
-                    public void backToMainTitleLength(int length) {
-//                        centext_id.setText("我的面板"+"("+length+")");
-                    }
-                });
-                break;
+//            case 9:
+////                centext_id.setVisibility(View.VISIBLE);
+////                addrelative_id.setVisibility(View.GONE);
+////                addimage_id.setVisibility(View.GONE);
+////                cenimage_id.setVisibility(View.GONE);
+////                centext_id.setText("我的面板");
+//                if (panelFragment == null) {
+//                    // 如果MessageFragment为空，则创建一个并添加到界面上
+//                    panelFragment = PanelFragment.newInstance(menu);
+//                    transaction.add(R.id.content_frame, panelFragment);
+//                } else {
+//                    // 如果MessageFragment不为空，则直接将它显示出来
+//                    transaction.show(panelFragment);
+//                }
+//
+//                panelFragment.setBackToMainTitleListener(new PanelFragment.BackToMainTitleListener() {
+//                    @Override
+//                    public void backToMainTitleLength(int length) {
+////                        centext_id.setText("我的面板"+"("+length+")");
+//                    }
+//                });
+//                break;
         }
         transaction.commitAllowingStateLoss();
         menu.showContent();
@@ -450,12 +527,19 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
         if (mainviewpager != null) {
             transaction.hide(mainviewpager);
         }
+        if (messagefragment != null) {
+            transaction.hide(messagefragment);
+        }
+
+        if (mydevicefragment != null) {
+            transaction.hide(mydevicefragment);
+        }
         if (mygatewayFragment != null) {
             transaction.hide(mygatewayFragment);
         }
-        if (macdeviceFragment != null) {
-            transaction.hide(macdeviceFragment);
-        }
+//        if (macdeviceFragment != null) {
+//            transaction.hide(macdeviceFragment);
+//        }
         if (mysceneFragment != null) {
             transaction.hide(mysceneFragment);
         }
@@ -472,9 +556,9 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
             transaction.hide(leftFragment);
         }
 
-        if (panelFragment != null) {
-            transaction.hide(panelFragment);
-        }
+//        if (panelFragment != null) {
+//            transaction.hide(panelFragment);
+//        }
     }
 
 //    //加载主界面右上角popwindow
@@ -535,7 +619,7 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
             case R.id.checkbutton_id:
                 viewDialog.removeviewDialog();
                 String UpApkUrl = ApiHelper.UpdateApkUrl + "sraum" + Version + ".apk";
-                Log.e("fei","UpApkUrl:" + UpApkUrl);
+                Log.e("fei", "UpApkUrl:" + UpApkUrl);
                 UpdateManager manager = new UpdateManager(MainfragmentActivity.this, UpApkUrl);
                 manager.showDownloadDialog();
                 break;
@@ -568,7 +652,8 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
     @Override
     protected void onResume() {
         isForegrounds = true;
-        Log.e("zhu-","MainfragmentActivity:onResume():isForegrounds:" + isForegrounds);
+        getNotify(getIntent());
+        Log.e("zhu-", "MainfragmentActivity:onResume():isForegrounds:" + isForegrounds);
 //      String  extras_login = (String) SharedPreferencesUtil.getData(MainfragmentActivity.this,"extras_login","");
 //        if (extras_login) {
 //
@@ -583,6 +668,16 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
     private void init_jlogin() {
         String mobilePhone = (String) SharedPreferencesUtil.getData(MainfragmentActivity.this, "loginPhone", "");
         TelephonyManager TelephonyMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         String szImei = TelephonyMgr.getDeviceId();
         init_islogin(mobilePhone, szImei);
     }
@@ -590,6 +685,7 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
 
     /**
      * 初始化登录
+     *
      * @param
      * @param mobilePhone
      * @param szImei
@@ -597,7 +693,7 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
     private void init_islogin(final String mobilePhone, final String szImei) {
         Map<String, Object> map = new HashMap<>();
         map.put("mobilePhone", mobilePhone);
-        map.put("phoneId",szImei);
+        map.put("phoneId", szImei);
         LogUtil.eLength("查看数据", new Gson().toJson(map));
         MyOkHttp.postMapObject(ApiHelper.sraum_isLogin, map, new Mycallback(new AddTogglenInterfacer() {
             @Override
@@ -634,5 +730,20 @@ public class MainfragmentActivity extends Basecfragmentactivity implements Mainv
     protected void onDestroy() {
         super.onDestroy();
 //        ToastUtil.showToast(MainfragmentActivity.this,"MainfragmentActivity:destroy");
+        common_second();
     }
+
+
+    /**
+     * 清除联动的本地存储
+     */
+    private void common_second() {
+        SharedPreferencesUtil.saveData(MainfragmentActivity.this, "linkId", "");
+        SharedPreferencesUtil.saveInfo_List(MainfragmentActivity.this, "list_result", new ArrayList<Map>());
+        SharedPreferencesUtil.saveInfo_List(MainfragmentActivity.this, "list_condition", new ArrayList<Map>());
+        SharedPreferencesUtil.saveData(MainfragmentActivity.this, "editlink", false);
+        SharedPreferencesUtil.saveInfo_List(MainfragmentActivity.this, "link_information_list", new ArrayList<Map>());
+        SharedPreferencesUtil.saveData(MainfragmentActivity.this, "add_condition", false);
+    }
+
 }

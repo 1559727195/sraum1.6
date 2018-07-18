@@ -75,6 +75,18 @@ public class AppManager {
         }
     }
 
+
+    public void removeActivity_but_activity_cls(Class<?> cls){
+        for(int i = activityStack.size() -1 ; i >= 0; i--){
+            Activity activity = activityStack.get(i);
+            if (activity.getClass().equals(cls)){
+                continue;
+            }
+            activityStack.remove(activity);
+            activity.finish();
+        }
+    }
+
     /**
      * 结束指定的Activity
      */

@@ -5,13 +5,15 @@ package com.Util;
  */
 //sraum API的调用
 public class ApiHelper {
-    public static String api = "https://app.sraum.com/SmartHome/";
+    public static String api = "https://test.sraum.com/SmartHome/";//
+    // public static String api = "https://app.sraum.com/SmartHome/";//正式：
     public static String sraum_register = api + "sraum_register";
     public static String sraum_getToken = api + "sraum_getToken";
     public static String sraum_checkMobilePhone = api + "sraum_checkMobilePhone";
     public static String sraum_login = api + "sraum_login";
     public static String sraum_updatePwd = api + "sraum_updatePwd";
     public static String sraum_getAllBox = api + "sraum_getAllBox";
+//    public static String sraum_getAllDevice = api + "sraum_getAllDevice2";
     public static String sraum_getAllDevice = api + "sraum_getAllDevice";
     public static String sraum_deviceControl = api + "sraum_deviceControl";
     public static String sraum_getBoxStatus = api + "sraum_getBoxStatus";
@@ -49,4 +51,22 @@ public class ApiHelper {
     public static String sraum_setBox = api + "sraum_setBox";
     public static String sraum_getPanelDevices = api + "sraum_getPanelDevices";
     public static String sraum_verifySceneName = api + "sraum_verifySceneName";
+    public static String sraum_getOtherDevices = api + "sraum_getOtherDevices";
+    public static String sraum_getAllPanelNew = api + "sraum_getAllPanelNew";
+    public static String sraum_getBoxVersion = api + "sraum_getBoxVersion";
+    public static String sraum_updateBox = api + "sraum_updateBox";
+    public static String sraum_myDeviceLink = api + "sraum_myDeviceLink";
+    public static String sraum_setDeviceLinkIsUse = api + "sraum_setDeviceLinkIsUse";
+    public static String sraum_updateDeviceLinkName = api + "sraum_updateDeviceLinkName";
+    public static String sraum_deleteDeviceLink = api + "sraum_deleteDeviceLink";
+    public static String sraum_getLinkSensor = api + "sraum_getLinkSensor";
+    public static String sraum_getLinkController = api + "sraum_getLinkController";
+    public static String sraum_getLinkScene = api + "sraum_getLinkScene";
+    public static String sraum_setDeviceLink = api + "sraum_setDeviceLink";
+    public static String sraum_deviceLinkInfo = api + "sraum_deviceLinkInfo";
+    public static String sraum_updateDeviceLink = api + "sraum_updateDeviceLink";
+    public static String sraum_getMessage = api + "sraum_getMessage";
+    public static String sraum_setReadStatus = api + "sraum_setReadStatus";
+    public static String sraum_deleteMessage = api + "sraum_deleteMessage";
+    public static String sraum_getMessageById = api + "sraum_getMessageById";
 }

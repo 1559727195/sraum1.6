@@ -89,6 +89,7 @@ public class MacdeviceActivity extends Basecactivity {
         dialogUtil = new DialogUtil(this);
         startState();
         btn_cancel_wangguan.setOnClickListener(this);
+        roundProgressBar2.setAdd_Delete("delete");
     }
 
     private void init_status_bar() {

@@ -32,9 +32,11 @@ import com.data.User;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.massky.sraum.AddsignsceneActivity;
 import com.massky.sraum.AssociatedpanelActivity;
+import com.massky.sraum.LinkageListActivity;
 import com.massky.sraum.MainfragmentActivity;
 import com.massky.sraum.MysceneActivity;
 import com.massky.sraum.R;
+import com.massky.sraum.SelectSensorActivity;
 import com.massky.sraum.SexActivity;
 
 import java.io.Serializable;
@@ -76,6 +78,8 @@ public class MysceneFragment extends Basecfragment implements AdapterView.OnItem
     ImageView cenimage_id;
     @InjectView(R.id.centext_id)
     TextView centext_id;
+    @InjectView(R.id.title_scene_link)
+    TextView title_scene_link;
 
     RelativeLayout mrelativeone, mrelativetwo, mrelativethree, mrelativefour;
     private MyscefargmentAdapter adapter;
@@ -113,6 +117,7 @@ public class MysceneFragment extends Basecfragment implements AdapterView.OnItem
         newFragment.setArguments(bundle);
         return newFragment;
     }
+
     @Override
     protected int viewId() {
         return R.layout.myscene_slide;
@@ -176,7 +181,7 @@ public class MysceneFragment extends Basecfragment implements AdapterView.OnItem
         centext_id.setVisibility(View.VISIBLE);
         addimage_id.setVisibility(View.GONE);
         centext_id.setText("我的场景");
-
+        title_scene_link.setOnClickListener(this);
         registerMessageReceiver();
         mainfragmentActivity = (MainfragmentActivity) getActivity();
         addDialog();
@@ -482,6 +487,9 @@ public class MysceneFragment extends Basecfragment implements AdapterView.OnItem
                 dialogUtil.removeviewBottomDialog();
                 IntentUtil.startActivity(getActivity(), AssociatedpanelActivity.class, bundle1);
                 break;
+            case R.id.title_scene_link:
+                startActivity(new Intent(getActivity(), LinkageListActivity.class));
+                break;
         }
     }
 
@@ -526,6 +534,7 @@ public class MysceneFragment extends Basecfragment implements AdapterView.OnItem
 
     /**
      * 响应点击某个场景的事件
+     *
      * @param view
      * @param position
      */

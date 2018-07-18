@@ -291,7 +291,7 @@ public class MacFragment extends Basecfragment implements
         }
         uploader_refresh(mapdevice);
 
-}
+    }
 
     private void uploader_refresh(final Map<String, String> mapdevice) {
         MyOkHttp.postMapString(ApiHelper.sraum_getAllDevice, mapdevice, new Mycallback(new AddTogglenInterfacer() {
@@ -419,11 +419,16 @@ public class MacFragment extends Basecfragment implements
             case "9":
             case "10":
             case "11":
-              //special_type_device(mapdevice);
-                //test_pm25();
-               // test_tv();
+            case "12":
+            case "13":
+            case "14":
+            case "15":
+            case "16":
+                //special_type_device(mapdevice);
+//                test_pm25();
+                // test_tv();
                 //test_air_control();
-                water_sensor();
+//                water_sensor();
                 break;
             default:
                 curtains_and_light(position, mapalldevice);
@@ -437,21 +442,21 @@ public class MacFragment extends Basecfragment implements
      */
     private void water_sensor() {
 
-        startActivity(new Intent(getActivity(),WaterSensorActivity.class));
+        startActivity(new Intent(getActivity(), WaterSensorActivity.class));
     }
 
     /**
      * 测试空调
      */
     private void test_air_control() {
-        startActivity(new Intent(getActivity(),AirControlActivity.class));
+        startActivity(new Intent(getActivity(), AirControlActivity.class));
     }
 
     /**
      * 测试电视
      */
     private void test_tv() {
-        startActivity(new Intent(getActivity(),TVShowActivity.class));
+        startActivity(new Intent(getActivity(), TVShowActivity.class));
     }
 
     /**
@@ -575,11 +580,12 @@ public class MacFragment extends Basecfragment implements
                         }
                         listtype.set(position, status);
                         String string = listtype.get(position);
-                        if (string.equals("1")) {
-                            itemrela_id.setBackgroundResource(R.drawable.markstarh);
-                        } else {
-                            itemrela_id.setBackgroundResource(R.drawable.markh);
-                        }
+//                        if (string.equals("1")) {
+//                            itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                        } else {
+//                            itemrela_id.setBackgroundResource(R.drawable.markh);
+//                        }
+                        upload(true);
                     }
 
                     @Override

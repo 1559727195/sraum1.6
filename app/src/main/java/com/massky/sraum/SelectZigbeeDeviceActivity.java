@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-
 import com.AddTogenInterface.AddTogglenInterfacer;
 import com.Util.ApiHelper;
 import com.Util.DialogUtil;
@@ -69,9 +68,9 @@ public class SelectZigbeeDeviceActivity extends Basecactivity {
 //            R.drawable.emergency_button_s};
     private int[] icon = {R.drawable.icon_kaiguan_40, R.drawable.magnetic_door_s,
             R.drawable.human_induction_s, R.drawable.water_s, R.drawable.pm25_s,
-            R.drawable.emergency_button_s, R.drawable.ic_launcher, R.drawable.ic_launcher,
-            R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher
-            , R.drawable.ic_launcher
+            R.drawable.emergency_button_s, R.drawable.icon_rucebjq_40, R.drawable.icon_yanwubjq_40,
+            R.drawable.icon_ranqibjq_40, R.drawable.icon_pm25_40, R.drawable.icon_pm25_40, R.drawable.icon_zhinengmensuo_40
+
     };
 
     //        //type：设备类型，1-灯，2-调光，3-空调，4-窗帘，5-新风，6-地暖,7-门磁，8-人体感应，9-水浸检测器，10-入墙PM2.5
@@ -90,7 +89,7 @@ public class SelectZigbeeDeviceActivity extends Basecactivity {
     private int[] iconName = {R.string.kaiguan, R.string.menci, R.string.rentiganying, R.string.shuijin,
             R.string.pm_ruqiang, R.string.jinjin_btn, R.string.jiuzuo, R.string.smoke_alarm, R.string.gas_alarm
             , R.string.pm25_in_wall, R.string.pm25_rubik, R.string.smart_lock
-            , R.string.dc_mini
+
     };
     private SelectWifiDevAdapter adapter_wifi;
     private DialogUtil dialogUtil;

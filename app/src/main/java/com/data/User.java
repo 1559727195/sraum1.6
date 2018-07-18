@@ -1,7 +1,13 @@
 package com.data;
 
+import com.Util.TokenUtil;
+import com.massky.sraum.EditLinkDeviceResultActivity;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by masskywcy on 2017-01-04.
@@ -24,10 +30,13 @@ public class User {
     public List<scenelist> sceneList;
     public List<panellist> panelList;
     public String type;
-    public  String panelType;
-    public  String panelStatus;
-    public  String panelName;
-    public  String panelMAC;
+    public String panelType;
+    public String panelStatus;
+    public String panelName;
+    public String panelMAC;
+    public String deviceName;
+    public String messageTitle;
+    public String eventTime;
 
     public User() {
 
@@ -54,6 +63,14 @@ public class User {
         public String button7Type;
         public String button8Name;
         public String button8Type;
+        public String panelNumber;
+        public String panelName;
+        public String panelType;
+        public String boxNumber;
+        public String boxName;
+        public String firmware;
+        public String hardware;
+        public String gatewayid;
     }
 
     //gatewayid面板id panelType面板类型
@@ -68,6 +85,12 @@ public class User {
         public String panelNumber;
         public String buttonNumber;
         public List<devicesce> deviceList;
+        public String sceneId;
+        public String sceneName;
+        public String sceneType;
+        public String boxNumber;
+        public String boxName;
+
     }
 
     /*
@@ -99,7 +122,7 @@ public class User {
     temperature：空调或新风或地暖的温度，范围 16-30
     speed：空调或新风或地暖的风速，1-低风，2-中风，3-高风，4-强力，5-送风，
     6-自动*/
-    public static class device implements Serializable{
+    public static class device implements Serializable {
         //根据面板id-》去查找设备列表
         public String type;
         public String number;
@@ -113,6 +136,9 @@ public class User {
         public String name2;
         public boolean flag;
         public String panelName;
+        public String boxNumber;
+        public String boxName;
+
     }
 
     /*下载全部智能设备
@@ -183,5 +209,75 @@ public class User {
         public String hardware;
         public String system;
         public String stauts;
+    }
+
+    public List<deviceList> deviceLists;
+
+    /**
+     * 获取门磁等第三方设备
+     */
+    public static class deviceList {
+        public String name;
+        public String number;
+        public String type;
+        public String status;
+        public String mode;
+        public String dimmer;
+        public String temperature;
+        public String speed;
+        public String boxNumber;
+        public String boxName;
+    }
+
+    /**
+     * 获取网关版本号
+     */
+    public String currentVersion;
+    public String newVersion;
+
+    /**
+     * 获取我的设备联动
+     */
+
+    public List<deviceLinkList> deviceLinkList;
+
+    public static class deviceLinkList {
+        public String id;
+        public String name;
+        public String isUse;
+    }
+
+    /**
+     * 设备联动信息
+     */
+    public deviceLinkInfo deviceLinkInfo;
+
+    public static class deviceLinkInfo {
+        public String token;
+        public String deviceId;
+        public String deviceType;
+        public String linkName;
+        public String condition;
+        public String minValue;
+        public String maxValue;
+        public String startTime;
+        public String endTime;
+        public List<deviceList> deviceList;
+        public String deviceName;
+    }
+
+    /**
+     * 分页获取消息列表
+     */
+
+    public List<messageList> messageList;
+
+    public static class messageList implements Serializable {
+        public String id;
+        public String messageType;
+        public String messageTitle;
+        public String deviceName;
+        public String readStatus;
+        public String eventTime;
     }
 }

@@ -22,6 +22,7 @@
     <color name="white">#ffffff</color>
     <color name="c6f">#6f6f6f</color>
     <color name="colorPrimary">#3F51B5</color>
+    <color name="clear" >#00000000</color>
 
     <color name="colorgraystatusbar">#EFEFF2</color>
     <color name="colorPrimaryDark">#303F9F</color>
@@ -46,4 +47,11 @@
     <color name="colorgreen">#4BFFFF</color>
     <color name="colororiange">#EEA512</color>
     <color name="colorred">#DC0020</color>
+    <color name="gold">#E3CC9B</color>
+    <color name="gold_color">#E3CC9B</color>
+    <color name="black_color">#2C2C2E</color>
+    <color name="dark_gray">#515151</color>
+    <color name="gray">#c8c8c8</color>
+    <color name="blue_txt">#4DC9C3</color>
+    <color name="zongse_color">#E2C891</color>
 </resources>

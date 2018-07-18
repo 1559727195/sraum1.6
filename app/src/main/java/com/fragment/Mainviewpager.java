@@ -24,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.AddTogenInterface.AddTogglenInterfacer;
 import com.Util.ApiHelper;
 import com.Util.DialogUtil;
@@ -46,25 +45,13 @@ import com.massky.sraum.MainfragmentActivity;
 import com.massky.sraum.MysceneActivity;
 import com.massky.sraum.R;
 import com.massky.sraum.SelectZigbeeDeviceActivity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import butterknife.InjectView;
 import butterknife.OnClick;
-
-import static cn.ciaapp.sdk.CIAService.context;
 import static com.Util.SharedPreferencesUtil.getData;
-import static com.Util.TokenUtil.getBoxnumber;
-import static com.massky.sraum.R.id.belowtext_id;
-import static com.massky.sraum.R.id.checkbutton_id;
-import static com.massky.sraum.R.id.checklinear_id;
-import static com.massky.sraum.R.id.dtext_id;
-import static com.massky.sraum.R.id.mygatecir;
-import static com.massky.sraum.R.id.qxbutton_id;
-import static com.massky.sraum.R.id.swibtnone;
 
 
 /**
@@ -92,7 +79,6 @@ public class Mainviewpager extends Basecfragment implements ViewPager.OnPageChan
     TextView roomtext_id;
     @InjectView(R.id.scene_id)
     TextView scene_id;
-
     @InjectView(R.id.sideslip_id)
     RelativeLayout sideslip_id;
     @InjectView(R.id.addrelative_id)
@@ -151,7 +137,6 @@ public class Mainviewpager extends Basecfragment implements ViewPager.OnPageChan
                 addrelative_id.setVisibility(View.GONE);
                 addimage_id.setVisibility(View.GONE);
                 break;//家庭成员
-
         }
     }
 
@@ -333,7 +318,6 @@ public class Mainviewpager extends Basecfragment implements ViewPager.OnPageChan
                 select_dev_type();//选择设备类型
             }
         });
-
 
 
         addmac_id = (RelativeLayout) v.findViewById(R.id.addmac_id);

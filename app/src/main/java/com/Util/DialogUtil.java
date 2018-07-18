@@ -89,7 +89,7 @@ public class DialogUtil {
         viewBottomDialog.setCanceledOnTouchOutside(true);
         viewBottomDialog.show();
         // 设置dialog没有title
-        viewBottomDialog.setContentView(viewbottom, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        viewBottomDialog.setContentView(viewbottom, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         Window window = viewBottomDialog.getWindow();
         window.setWindowAnimations(R.style.mystyle);
         // 可以在此设置显示动画

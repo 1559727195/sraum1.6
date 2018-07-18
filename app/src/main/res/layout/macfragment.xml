@@ -16,7 +16,7 @@
             android:layout_marginLeft="@dimen/p17"
             android:layout_marginRight="@dimen/p17"
             android:background="@color/white"
-            app:layout_heightPercent="88%">
+            app:layout_heightPercent="100%">
 
             <GridView
                 android:id="@+id/macfragritview_id"
@@ -31,6 +31,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:visibility="gone"
             android:layout_alignParentBottom="true"
             app:layout_heightPercent="12%">
 

@@ -135,6 +135,7 @@ public class Mycallback extends StringCallback implements ApiResult {
 
     @Override
     public void onSuccess(User user) {
+
     }
 
     @Override

@@ -163,7 +163,7 @@ public class MygatewayFragment extends Basecfragment implements
         sideslip_id.setOnClickListener(this);
 
         //成员，业主accountType->addrelative_id
-        accountType = (String) SharedPreferencesUtil.getData(getActivity(), "accountType","");
+        accountType = (String) SharedPreferencesUtil.getData(getActivity(), "accountType", "");
     }
 
     //删除dialog提示框
@@ -200,7 +200,7 @@ public class MygatewayFragment extends Basecfragment implements
                     allboxList.add(allbox);
                 }
                 if (allboxList.size() == 0) {
-                    Log.e("zhu","no-gateway_allboxlist");
+                    Log.e("zhu", "no-gateway_allboxlist");
 //                    mySlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
                     mySlidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
                     SharedPreferencesUtil.saveData(getActivity(), "boxnumber", "");
@@ -275,7 +275,7 @@ public class MygatewayFragment extends Basecfragment implements
                         startActivity(intent);
                         break;//业主
                     case "2":
-                        ToastUtil.showToast(getActivity(),"非业主账号不能进行添加删除修改");
+                        ToastUtil.showToast(getActivity(), "非业主账号不能进行添加删除修改");
                         break;//家庭成员
                 }
                 break;
@@ -297,7 +297,7 @@ public class MygatewayFragment extends Basecfragment implements
                         dialogUtil.loadViewdialog();
                         break;//业主
                     case "2":
-                        ToastUtil.showToast(getActivity(),"非业主账号不能进行添加删除修改");
+                        ToastUtil.showToast(getActivity(), "非业主账号不能进行添加删除修改");
                         break;//家庭成员
                 }
                 break;
@@ -323,7 +323,7 @@ public class MygatewayFragment extends Basecfragment implements
                         IntentUtil.startActivity(getActivity(), ChangeWangGuanpassActivity.class, bundle_change_boxpass);
                         break;//业主
                     case "2":
-                        ToastUtil.showToast(getActivity(),"非业主账号不能进行添加删除修改");
+                        ToastUtil.showToast(getActivity(), "非业主账号不能进行添加删除修改");
                         break;//家庭成员
                 }
                 break;
@@ -368,7 +368,7 @@ public class MygatewayFragment extends Basecfragment implements
                 listdelbox.add(delallbox);
                 allboxList.removeAll(listdelbox);
                 adapter.notifyDataSetChanged();
-                Log.e("peng","adapter:allboxList:" + allboxList);
+                Log.e("peng", "adapter:allboxList:" + allboxList);
             }
 
             @Override
@@ -412,16 +412,17 @@ public class MygatewayFragment extends Basecfragment implements
         mapitembox.put("boxNumber", allist.get(position).number);
         dialogUtil.loadDialog();
         LogUtil.eLength("点击传入数据", new Gson().toJson(mapitembox));
-        set_onItemCLick(position,mapitembox);
+        set_onItemCLick(position, mapitembox);
     }
 
     /**
      * 设置点击item改变状态
+     *
      * @param position
      * @param mapitembox
      */
-    private void set_onItemCLick(final int position,final Map<String, Object> mapitembox) {
-        MyOkHttp.postMapObjectnest(ApiHelper.sraum_changeBox, mapitembox, new MycallbackNest(new AddTogglenInterfacer(){
+    private void set_onItemCLick(final int position, final Map<String, Object> mapitembox) {
+        MyOkHttp.postMapObjectnest(ApiHelper.sraum_changeBox, mapitembox, new MycallbackNest(new AddTogglenInterfacer() {
             @Override
             public void addTogglenInterfacer() {//刷新togglen数据
                 Map<String, Object> mapitembox = new HashMap<>();
@@ -430,7 +431,7 @@ public class MygatewayFragment extends Basecfragment implements
                 set_onItemCLick(position, mapitembox);
             }
         },
-            getActivity(), dialogUtil) {
+                getActivity(), dialogUtil) {
             @Override
             public void onError(Call call, Exception e, int id) {
                 super.onError(call, e, id);

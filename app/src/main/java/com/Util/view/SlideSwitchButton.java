@@ -26,6 +26,7 @@ import com.massky.sraum.R;
 
 public class SlideSwitchButton extends View {
 
+    private  int backColor;
     private int widthSize = 280;
     private int heightSize = 140;
 
@@ -33,7 +34,7 @@ public class SlideSwitchButton extends View {
     private int mOutRadius;
 
     private int themeColor;
-    private boolean isOpen;
+    public boolean isOpen;
 
     private static final int PADDING = 6;
 
@@ -66,6 +67,7 @@ public class SlideSwitchButton extends View {
         if (typedArray != null) {
             themeColor = typedArray.getColor(R.styleable.slideswitch_themeColor, Color.parseColor("#E0C287"));
             isOpen = typedArray.getBoolean(R.styleable.slideswitch_isOpen, false);
+            backColor = typedArray.getColor(R.styleable.slideswitch_backColor, Color.GRAY);
             typedArray.recycle();
         }
     }
@@ -115,7 +117,7 @@ public class SlideSwitchButton extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         //绘制底层背景
-        mPaint.setColor(Color.GRAY);
+        mPaint.setColor(backColor);
         mOutRect.set(0, 0, widthSize, heightSize);
         canvas.drawRoundRect(mOutRect, mOutRadius, mOutRadius, mPaint);
         //绘制改变透明度后的背景

@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.base.BaseAdapter;
 import com.data.User;
 import com.massky.sraum.R;
+
 import java.util.List;
 
 /**
@@ -33,60 +35,91 @@ public class MacFragAdapter extends BaseAdapter<User.device> {
             mHolder.imageitem_id = (ImageView) convertView.findViewById(R.id.imageitem_id);
             mHolder.textitem_id = (TextView) convertView.findViewById(R.id.textitem_id);
             mHolder.itemrela_id = (RelativeLayout) convertView.findViewById(R.id.itemrela_id);
+            //status_txt
+            mHolder.status_txt = (TextView) convertView.findViewById(R.id.status_txt);
             convertView.setTag(mHolder);
         } else {
             mHolder = (ViewHolder) convertView.getTag();
         }
         mHolder.textitem_id.setText(list.get(position).name);
         //type：设备类型，1-灯，2-调光，3-空调，4-窗帘，5-新风，6-地暖
+//        mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
         switch (list.get(position).type) {
             case "1":
                 if (list.get(position).status.equals("1")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.status_txt.setText("开");//#E2C891
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_quankai_40_active);
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.status_txt.setText("关");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_deng_40);
                 }
-                mHolder.imageitem_id.setImageResource(R.drawable.marklamph);
                 break;
             case "2":
                 if (list.get(position).status.equals("1")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_tiaoguang_40_active);
+                    mHolder.status_txt.setText("开");//#E2C891
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_tiaoguang_40);
+                    mHolder.status_txt.setText("关");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
                 }
-                mHolder.imageitem_id.setImageResource(R.drawable.dimminglights);
                 break;
             case "3":
                 if (list.get(position).status.equals("1")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_kongtiao_40_active);
+                    mHolder.status_txt.setText("开");//#E2C891
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_kongtiao_40);
+                    mHolder.status_txt.setText("关");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
                 }
-                mHolder.imageitem_id.setImageResource(R.drawable.home_26);
+
                 break;
             case "4":
                 String curstatus = list.get(position).status;
                 if (curstatus.equals("1") || curstatus.equals("3") || curstatus.equals("4")
                         || curstatus.equals("4") || curstatus.equals("5") || curstatus.equals("8")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("开");//#E2C891
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_chuanglian_40_active);
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.status_txt.setText("关");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_chuanglian_40);
                 }
-                mHolder.imageitem_id.setImageResource(R.drawable.home_curtain);
                 break;
             case "5":
                 if (list.get(position).status.equals("1")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("开");//#E2C891
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.status_txt.setText("关");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
                 }
                 mHolder.imageitem_id.setImageResource(R.drawable.freshair);
                 break;
             case "6":
                 if (list.get(position).status.equals("1")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("开");//#E2C891
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.status_txt.setText("关");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
                 }
                 mHolder.imageitem_id.setImageResource(R.drawable.floorheating);
                 break;
@@ -94,43 +127,122 @@ public class MacFragAdapter extends BaseAdapter<User.device> {
 
             case "7":
                 if (list.get(position).status.equals("1")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_menci_40_active);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("打开");//#E2C891
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_menci_40);
+                    mHolder.status_txt.setText("关闭");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
                 }
-                mHolder.imageitem_id.setImageResource(R.drawable.magnetic_door_s);
                 break;
             case "8":
                 if (list.get(position).status.equals("1")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_rentiganying_40_active);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("有人");//#E2C891
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_rentiganying_40);
+                    mHolder.status_txt.setText("正常");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
                 }
-                mHolder.imageitem_id.setImageResource(R.drawable.human_induction_s);
+
                 break;
             case "9":
                 if (list.get(position).status.equals("1")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_shuijin_40_active);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("报警");//#E2C891
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_shuijin_40);
+                    mHolder.status_txt.setText("正常");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
                 }
-                mHolder.imageitem_id.setImageResource(R.drawable.water_s);
+
                 break;
             case "10":
                 if (list.get(position).status.equals("1")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_pm25_40_active);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("报警");//#E2C891
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_pm25_40);
+                    mHolder.status_txt.setText("正常");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
                 }
-                mHolder.imageitem_id.setImageResource(R.drawable.pm25_s);
                 break;
             case "11":
                 if (list.get(position).status.equals("1")) {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_jinjianniu_40_active);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("报警");//#E2C891
                 } else {
-                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_jinjianniu_40);
+                    mHolder.status_txt.setText("正常");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
                 }
-                mHolder.imageitem_id.setImageResource(R.drawable.emergency_button_s);
+                break;
+            case "12":
+                if (list.get(position).status.equals("1")) {
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_rucebjq_40_active);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("报警");//#E2C891
+                } else {
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_rucebjq_40);
+                    mHolder.status_txt.setText("正常");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
+                }
+                break;
+            case "13":
+                if (list.get(position).status.equals("1")) {
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_yanwubjq_40_active);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("报警");//#E2C891
+                } else {
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_yanwubjq_40);
+                    mHolder.status_txt.setText("正常");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
+                }
+                break;
+            case "14":
+                if (list.get(position).status.equals("1")) {
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_ranqibjq_40_active);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("报警");//#E2C891
+                } else {
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_ranqibjq_40);
+                    mHolder.status_txt.setText("正常");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
+                }
+                break;
+            case "15":
+                if (list.get(position).status.equals("1")) {
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markstarh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_zhinengmensuo_40_active);
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.zongse_color));
+                    mHolder.status_txt.setText("打开");//#E2C891
+                } else {
+//                    mHolder.itemrela_id.setBackgroundResource(R.drawable.markh);
+                    mHolder.imageitem_id.setImageResource(R.drawable.icon_zhinengmensuo_40);
+                    mHolder.status_txt.setText("关闭");
+                    mHolder.status_txt.setTextColor(context.getResources().getColor(R.color.e30));
+                }
                 break;
             default:
                 mHolder.imageitem_id.setImageResource(R.drawable.marklamph);
@@ -144,5 +256,6 @@ public class MacFragAdapter extends BaseAdapter<User.device> {
         ImageView imageitem_id;
         TextView textitem_id;
         RelativeLayout itemrela_id;
+        TextView status_txt;
     }
 }

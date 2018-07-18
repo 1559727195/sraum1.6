@@ -2,6 +2,7 @@ package com.massky.sraum;
 
 
 import android.*;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
@@ -33,6 +34,7 @@ import com.base.Basecactivity;
 import com.data.Allbox;
 import com.data.User;
 import com.google.gson.Gson;
+import com.jpush.Constants;
 import com.permissions.RxPermissions;
 
 import java.util.ArrayList;
@@ -122,7 +124,15 @@ public class LoginActivity extends Basecactivity {
         boolean flag = (boolean) SharedPreferencesUtil.getData(LoginActivity.this, "loginflag", false);
         //登录状态保存
         if (flag) {
-            IntentUtil.startActivityAndFinishFirst(LoginActivity.this, MainfragmentActivity.class);
+//            IntentUtil.startActivityAndFinishFirst(LoginActivity.this, MainfragmentActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainfragmentActivity.class);
+            if (getIntent().getBundleExtra(Constants.EXTRA_BUNDLE) != null) {
+                intent.putExtra(Constants.EXTRA_BUNDLE,
+                        getIntent().getBundleExtra(Constants.EXTRA_BUNDLE));
+            }
+            startActivity(intent);
+//            SharedPreferencesUtil.saveData(LoginActivity.this,"loginflag",true);
+            finish();
         }
         usertext_id.setOnTouchListener(new View.OnTouchListener() {
             @Override

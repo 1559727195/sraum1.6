@@ -232,7 +232,7 @@ public class PullToRefreshLayout extends RelativeLayout {
                     changeState(DONE);
                     hide();
                 }
-            }.sendEmptyMessageDelayed(0, 1000);
+            }.sendEmptyMessageDelayed(0, 200);
         } else {
             changeState(DONE);
             hide();
@@ -270,7 +270,7 @@ public class PullToRefreshLayout extends RelativeLayout {
                     changeState(DONE);
                     hide();
                 }
-            }.sendEmptyMessageDelayed(0, 1000);
+            }.sendEmptyMessageDelayed(0, 200);
         } else {
             changeState(DONE);
             hide();
@@ -331,6 +331,16 @@ public class PullToRefreshLayout extends RelativeLayout {
         canPullDown = true;
         canPullUp = true;
     }
+
+
+    /**
+     * 限制上拉或下拉
+     */
+   public void noreleasePull() {
+        canPullDown = false;
+        canPullUp = false;
+    }
+
 
     /*
      * （非 Javadoc）由父控件决定是否分发事件，防止事件冲突

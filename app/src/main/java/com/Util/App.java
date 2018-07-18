@@ -2,31 +2,21 @@ package com.Util;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
-
 import com.dialog.CommonData;
 import com.dialog.CommonDialogService;
 import com.dialog.ToastUtils;
-import com.michoi.cloudtalksdk.newsdk.api.CloudTalkManager;
 import com.michoi.cloudtalksdk.util.SystemUtil;
 import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.log.LoggerInterceptor;
-
 import java.util.concurrent.TimeUnit;
-
 import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
-
-import static com.jpush.MainActivity.isForeground;
 
 /**
  * Created by masskywcy on 2017-01-04.
@@ -197,5 +187,11 @@ public class App extends Application implements Application.ActivityLifecycleCal
     @Override
     public void onActivityDestroyed(Activity activity) {
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
     }
 }

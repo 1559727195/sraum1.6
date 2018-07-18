@@ -32,10 +32,36 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relative_message_id"
+        android:layout_width="@dimen/p300"
+        android:layout_height="@dimen/p85"
+        android:layout_below="@+id/relativeone_id"
+      >
+
+        <ImageView
+            android:id="@+id/image_message_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/p53"
+            android:background="@drawable/icon_message" />
+
+        <TextView
+            android:id="@+id/text_message_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/p130"
+            android:text="消息"
+            android:textColor="@color/e9f"
+            android:textSize="@dimen/p26" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/relativetwo_id"
         android:layout_width="@dimen/p300"
         android:layout_height="@dimen/p85"
-        android:layout_below="@+id/relativeone_id">
+        android:layout_below="@+id/relative_message_id">
 
         <ImageView
             android:id="@+id/imagetwo_id"
@@ -55,11 +81,35 @@
             android:textColor="@color/e9f"
             android:textSize="@dimen/p26" />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mydevice_id"
+        android:layout_width="@dimen/p300"
+        android:layout_height="@dimen/p85"
+        android:layout_below="@+id/relativetwo_id">
 
+        <ImageView
+            android:id="@+id/image_mydevice_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/p57"
+            android:background="@drawable/menulamphalf" />
+
+        <TextView
+            android:id="@+id/text_mydevice_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/p130"
+            android:text="我的设备"
+            android:textColor="@color/e9f"
+            android:textSize="@dimen/p26" />
+    </RelativeLayout>
     <RelativeLayout
         android:id="@+id/relativenine_id"
         android:layout_width="@dimen/p300"
         android:layout_height="@dimen/p85"
+        android:visibility="gone"
         android:layout_below="@+id/relativetwo_id">
 
         <ImageView
@@ -85,6 +135,7 @@
         android:id="@+id/relativethree_id"
         android:layout_width="@dimen/p300"
         android:layout_height="@dimen/p85"
+        android:visibility="gone"
         android:layout_below="@+id/relativenine_id">
 
         <ImageView
@@ -110,7 +161,7 @@
         android:id="@+id/relativefour_id"
         android:layout_width="@dimen/p300"
         android:layout_height="@dimen/p85"
-        android:layout_below="@+id/relativethree_id">
+        android:layout_below="@+id/mydevice_id">
 
         <ImageView
             android:id="@+id/imagefour_id"
@@ -209,6 +260,7 @@
     <RelativeLayout
         android:id="@+id/relativeight_id"
         android:layout_width="@dimen/p300"
+        android:visibility="gone"
         android:layout_height="@dimen/p85"
         android:layout_below="@+id/relativeseven_id">
 

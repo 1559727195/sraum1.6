@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.AddTogenInterface.AddTogglenInterfacer;
 import com.Util.ApiHelper;
 import com.Util.LogUtil;
@@ -28,18 +29,23 @@ import com.fragment.RoomFragment;
 import com.fragment.SceneFragment;
 import com.google.gson.GsonBuilder;
 import com.massky.sraum.FastEditPanelActivity;
+import com.massky.sraum.LoginActivity;
 import com.massky.sraum.MacdeviceActivity;
 import com.massky.sraum.MainfragmentActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import cn.jpush.android.api.JPushInterface;
 
 import static com.massky.sraum.AddZigbeeDevActivity.ACTION_SRAUM_SETBOX;
+import static com.massky.sraum.GuJianWangGuanActivity.UPDATE_GRADE_BOX;
 
 /**
  * 自定义接收器
@@ -77,7 +83,7 @@ public class MyReceiver extends BroadcastReceiver {
             int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
             LogUtil.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
             //进行广播通知是否刷新设备和场景
-            processCustomMessage(Integer.parseInt(user.type),bundle);
+            processCustomMessage(Integer.parseInt(user.type), bundle);
         } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
             //接收下来的json数据
             User user = new GsonBuilder().registerTypeAdapterFactory(new NullStringToEmptyAdapterFactory()).
@@ -94,25 +100,75 @@ public class MyReceiver extends BroadcastReceiver {
             SharedPreferencesUtil.saveData(context, "usertype", user.type);
             //2代表场景信息1代表设备刷新信息
             //Intent i = null;
-            if (context instanceof MainfragmentActivity) {
-                MainfragmentActivity fca = (MainfragmentActivity) context;
-                if (user.type.equals("2")) {
-                    fca.setTabSelection(3);
-                } else if (user.type.equals("1")) {
-                    fca.setTabSelection(0);
-                }
-            } else {
-                //IntentUtil.startActivity(context, MainfragmentActivity.class, "usertype", user.type);
-                /*
-                *   i = new Intent(context, MainfragmentActivity.class);
-                if (i != null) {
-                    //打开自定义的Activity
-                    i.putExtras(bundle);
-                    //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    context.startActivity(i);
-                }*/
+            String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);////{"type":"2"}
+            JSONObject json = null;
+            try {
+                json = new JSONObject(extras);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+            String type = null;
+            try {
+                type = json.getString("type");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            //判断app进程是否存活
+            if (SystemUtils.isAppAlive(context, "com.massky.sraum")) {
+                switch (type) {
+                    case "1":
+                    case "2":
+                    case "51":
+                        //processCustomMessage_charge(context, bundle);
+                        //打开自定义的Activity
+                        Intent i_charge = new Intent(context, MainfragmentActivity.class);
+                        i_charge.putExtra(Constants.EXTRA_BUNDLE, bundle);//    launchIntent.putExtra(Constants.EXTRA_BUNDLE, args);
+                        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i_charge.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(i_charge);
+                        break;
+                }
+
+            } else {
+                Log.i("NotificationReceiver", "the app process is dead");
+                Intent launchIntent = context.getPackageManager().
+                        getLaunchIntentForPackage("com.massky.sraum");
+                switch (type) {
+                    case "1":
+                    case "2":
+                    case "51":
+                        launchIntent.putExtra(Constants.EXTRA_BUNDLE, bundle);
+                        break;
+                }
+                launchIntent.setFlags(
+                        Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                context.startActivity(launchIntent);
+            }
+//            if (context instanceof MainfragmentActivity) {
+//                MainfragmentActivity fca = (MainfragmentActivity) context;
+//                if (user.type.equals("2")) {
+//                    fca.setTabSelection(5);
+//                } else if (user.type.equals("1")) {
+//                    fca.setTabSelection(0);
+//                } else if (user.type.equals("51")) {
+//                    fca.setTabSelection(1);
+//                }
+//            } else {
+//                //IntentUtil.startActivity(context, MainfragmentActivity.class, "usertype", user.type);
+//                /*
+//                *   i = new Intent(context, MainfragmentActivity.class);
+//                if (i != null) {
+//                    //打开自定义的Activity
+//                    i.putExtras(bundle);
+//                    //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    context.startActivity(i);
+//                }*/
+//
+//
+//            }
         } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
             LogUtil.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
             //在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity， 打开一个网页等..
@@ -196,14 +252,14 @@ public class MyReceiver extends BroadcastReceiver {
             } else if (TokenUtil.getPagetag(context).equals("6")) {
                 action = MysceneFragment.ACTION_INTENT_RECEIVER;
             }
-            sendBroad(notifactionId,"");
+            sendBroad(notifactionId, "");
         } else if (notifactionId == 1) {//
             JSONObject extraJson;
             if (!ExampleUtil.isEmpty(extras)) {//设备状态改变
-               // 在extras中增加了字段panelid
+                // 在extras中增加了字段panelid
                 try {
                     extraJson = new JSONObject(extras);
-                    String panelid  = extraJson.getString("panelid");
+                    String panelid = extraJson.getString("panelid");
                     if (panelid != null) {
 //                        if (panelid.equals("")) {
 //                            action = MacFragment.ACTION_INTENT_RECEIVER;
@@ -236,9 +292,23 @@ public class MyReceiver extends BroadcastReceiver {
             if (!ExampleUtil.isEmpty(extras)) {
                 try {
                     extraJson = new JSONObject(extras);
-                    String panelid  = extraJson.getString("panelid");
+                    String panelid = extraJson.getString("panelid");
                     if (extraJson.length() > 0) {
-                        sendBroad(notifactionId,panelid);
+                        sendBroad(notifactionId, panelid);
+                    }
+                } catch (JSONException e) {
+
+                }
+            }
+        } else if (notifactionId == 50) {//notifactionId = 50 ->升级网关
+            action = UPDATE_GRADE_BOX;
+            JSONObject extraJson;
+            if (!ExampleUtil.isEmpty(extras)) {
+                try {
+                    extraJson = new JSONObject(extras);
+                    String panelid = extraJson.getString("panelid");
+                    if (extraJson.length() > 0) {
+                        sendBroad(notifactionId, panelid);
                     }
                 } catch (JSONException e) {
 
@@ -250,7 +320,7 @@ public class MyReceiver extends BroadcastReceiver {
     private void sendBroad(int notifactionId, String second) {
         Intent mIntent = new Intent(action);
         mIntent.putExtra("notifactionId", notifactionId);
-        mIntent.putExtra("panelid",second);
+        mIntent.putExtra("panelid", second);
         context.sendBroadcast(mIntent);
     }
 

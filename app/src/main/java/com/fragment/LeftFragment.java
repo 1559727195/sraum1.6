@@ -51,10 +51,14 @@ public class LeftFragment extends Basecfragment {
     RelativeLayout relativeight_id;
     @InjectView(R.id.relativenine_id)
     RelativeLayout relativenine_id;
+    @InjectView(R.id.relative_message_id)
+    RelativeLayout relative_message_id;
     @InjectView(R.id.headportrait_id)
     CircleImageView headportrait_id;
     @InjectView(R.id.nickaname)
     TextView nickaname;
+    @InjectView(R.id.mydevice_id)
+    RelativeLayout mydevice_id;
 
     int BLACK = Color.parseColor("#d0d0d0");
     int GRAY = Color.parseColor("#e3e3e3");
@@ -64,6 +68,7 @@ public class LeftFragment extends Basecfragment {
     private DialogUtil dialogBack;
     private boolean dialogFlag = true;
     private ScanReceiver scanReceiver;
+    public static String MESSAGE_TONGZHI = "com.fragment.message_tongzhi";
 
     @Override
     protected int viewId() {
@@ -76,7 +81,8 @@ public class LeftFragment extends Basecfragment {
         deleteDialog();
         scanReceiver = new ScanReceiver();
         IntentFilter filter = new IntentFilter();//控制成功后刷新数据
-        filter.addAction("UPSTATUS");
+        filter.addAction("UPSTATUS");//
+        filter.addAction(MESSAGE_TONGZHI);
         getActivity().registerReceiver(scanReceiver, filter);
     }
 
@@ -88,22 +94,47 @@ public class LeftFragment extends Basecfragment {
             if ("UPSTATUS".equals(intent.getAction())) {
                 String type = intent.getStringExtra("type");
                 switch (type) {
-                    case "device":
-                        clear();
-                        dialogFlag = true;
-                        relativethree_id.setBackgroundColor(BLACK);
-                        newContent = 2;
-                        break;
-                    case "panel":
-                        clear();
-                        dialogFlag = true;
-                        relativenine_id.setBackgroundColor(BLACK);
-                        newContent = 7;
-                        break;
+//                    case "device":
+//                        clear();
+//                        dialogFlag = true;
+//                        relativethree_id.setBackgroundColor(BLACK);
+//                        newContent = 5;
+//                        break;
+//                    case "panel":
+//                        clear();
+//                        dialogFlag = true;
+//                        relativenine_id.setBackgroundColor(BLACK);
+//                        newContent = 4;
+//                        break;
                     case "no_gateway"://没有网关
                         clear();
                         dialogFlag = true;
                         relativetwo_id.setBackgroundColor(BLACK);
+                        newContent = 2;
+                        break;
+                }
+                if (dialogFlag) {
+                    switchFragment(newContent);
+                }
+            } else if (MESSAGE_TONGZHI.equals(intent.getAction())) {
+                String type = intent.getStringExtra("type");
+                switch (type) {
+                    case "1"://首页
+                        clear();
+                        dialogFlag = true;
+                        relativeone_id.setBackgroundColor(BLACK);
+                        newContent = 0;
+                        break;
+                    case "2"://场景
+                        clear();
+                        dialogFlag = true;
+                        relativefive_id.setBackgroundColor(BLACK);
+                        newContent = 5;
+                        break;
+                    case "51"://消息
+                        clear();
+                        dialogFlag = true;
+                        relative_message_id.setBackgroundColor(BLACK);
                         newContent = 1;
                         break;
                 }
@@ -126,6 +157,8 @@ public class LeftFragment extends Basecfragment {
         relativeseven_id.setOnClickListener(this);
         relativeight_id.setOnClickListener(this);
         relativenine_id.setOnClickListener(this);
+        relative_message_id.setOnClickListener(this);
+        mydevice_id.setOnClickListener(this);
     }
 
     //设置用户头像
@@ -140,7 +173,7 @@ public class LeftFragment extends Basecfragment {
             name = loginPhone;
         }
         nickaname.setText(name);
-        android.util.Log.e("peng","LeftFragment->onResume:name:" + name);
+        android.util.Log.e("peng", "LeftFragment->onResume:name:" + name);
     }
 
     @Override
@@ -163,41 +196,53 @@ public class LeftFragment extends Basecfragment {
                 relativeone_id.setBackgroundColor(BLACK);
                 newContent = 0;
                 break;
+            case R.id.relative_message_id:
+                clear();
+                dialogFlag = true;
+                relative_message_id.setBackgroundColor(BLACK);
+                newContent = 1;
+                break;
             case R.id.relativetwo_id:
                 clear();
                 dialogFlag = true;
                 relativetwo_id.setBackgroundColor(BLACK);
-                newContent = 1;
-                break;
-            case R.id.relativethree_id:
-                clear();
-                dialogFlag = true;
-                relativethree_id.setBackgroundColor(BLACK);
                 newContent = 2;
                 break;
-            case R.id.relativefive_id:
+            case R.id.mydevice_id:
                 clear();
                 dialogFlag = true;
-                relativefive_id.setBackgroundColor(BLACK);
+                mydevice_id.setBackgroundColor(BLACK);
                 newContent = 3;
                 break;
+//            case R.id.relativethree_id:
+//                clear();
+//                dialogFlag = true;
+//                relativethree_id.setBackgroundColor(BLACK);
+//                newContent = 4;
+//                break;
             case R.id.relativefour_id:
                 clear();
                 dialogFlag = true;
                 relativefour_id.setBackgroundColor(BLACK);
                 newContent = 4;
                 break;
+            case R.id.relativefive_id:
+                clear();
+                dialogFlag = true;
+                relativefive_id.setBackgroundColor(BLACK);
+                newContent = 5;
+                break;
             case R.id.relativesix_id:
                 clear();
                 dialogFlag = true;
                 relativesix_id.setBackgroundColor(BLACK);
-                newContent = 5;
+                newContent = 6;
                 break;
             case R.id.relativeseven_id:
                 clear();
                 dialogFlag = true;
                 relativeseven_id.setBackgroundColor(BLACK);
-                newContent = 6;
+                newContent = 7;
                 break;
             case R.id.relativeight_id:
                 dialogFlag = false;
@@ -205,12 +250,12 @@ public class LeftFragment extends Basecfragment {
                 dialogBack.loadViewdialog();
                 relativeight_id.setBackgroundColor(BLACK);
                 break;
-            case R.id.relativenine_id:
-                clear();
-                dialogFlag = true;
-                relativenine_id.setBackgroundColor(BLACK);
-                newContent = 7;
-                break;
+//            case R.id.relativenine_id:
+//                clear();
+//                dialogFlag = true;
+//                relativenine_id.setBackgroundColor(BLACK);
+//                newContent = 7;
+//                break;
             case R.id.qxbutton_id:
                 dialogFlag = false;
                 dialogBack.removeviewDialog();
@@ -255,6 +300,8 @@ public class LeftFragment extends Basecfragment {
         relativeseven_id.setBackgroundColor(GRAY);
         relativeight_id.setBackgroundColor(GRAY);
         relativenine_id.setBackgroundColor(GRAY);
+        relative_message_id.setBackgroundColor(GRAY);
+        mydevice_id.setBackgroundColor(GRAY);
     }
 
     /**

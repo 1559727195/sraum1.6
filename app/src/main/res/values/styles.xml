@@ -126,4 +126,18 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
+    <style name="BottomDialog" parent="AlertDialog.AppCompat">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:fullBright">@color/clear</item>
+        <item name="android:fullDark">@color/clear</item>
+        <item name="android:topBright">@color/clear</item>
+        <item name="android:topDark">@color/clear</item>
+        <item name="android:borderlessButtonStyle">@color/clear</item>
+    </style>
 </resources>

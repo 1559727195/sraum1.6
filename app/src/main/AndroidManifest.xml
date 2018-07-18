@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.massky.sraum">
     <!--网络权限和状态配置权限-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -52,15 +53,23 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.NoTitleBar">
+        android:theme="@android:style/Theme.NoTitleBar"
+        tools:replace="android:icon">
         <activity
             android:name=".LoginActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<data android:scheme="aone" android:host="LoginActivity"-->
+            <!--tools:ignore="AppLinkUrlError" />-->
+            <!--</intent-filter>-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <activity
@@ -393,6 +402,11 @@
             android:screenOrientation="portrait"></activity>
 
         <activity
+            android:name=".AirLinkageControlActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
             android:name=".AddZigbeeDevActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
@@ -404,6 +418,22 @@
 
         <activity
             android:name=".TVShowActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+
+        <activity
+            android:name=".EditLinkDeviceResultActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".EditMyDeviceActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".MyDeviceItemActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
 
@@ -442,8 +472,49 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
 
+
+        <activity
+            android:name=".MessageDetailActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".GuJianWangGuanActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+
         <activity
             android:name=".SelectSensorActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".SelectiveLinkageActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".UpgradeGatewayActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".LinkageListActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ExcuteSomeOneSceneActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".SetSelectLinkActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".SelectiveLinkageDeviceDetailSecondActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
 
@@ -451,6 +522,22 @@
             android:name=".DeviceExcuteOpenActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".UnderWaterActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".SelectPmDataActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.picker"></activity>
+
+        <activity
+            android:name=".SelectiveLinkageDeviceDetailActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.picker"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

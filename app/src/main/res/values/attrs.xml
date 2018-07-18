@@ -128,6 +128,7 @@
 
     <declare-styleable name="slideswitch">
         <attr name="themeColor" format="color" />
+        <attr name="backColor" format="color" />
         <attr name="isOpen" format="boolean" />
         <attr name="shape">
             <enum name="rect" value="1" />

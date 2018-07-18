@@ -10,6 +10,7 @@ import android.view.View;
  */
 public class AutoLayoutActivity extends Activity {
 
+
 	private static final String LAYOUT_LINEARLAYOUT = "LinearLayout";
 	private static final String LAYOUT_FRAMELAYOUT = "FrameLayout";
 	private static final String LAYOUT_RELATIVELAYOUT = "RelativeLayout";

@@ -13,6 +13,7 @@
         <RelativeLayout
             android:id="@+id/addmac_id"
             android:layout_width="@dimen/p300"
+            android:visibility="gone"
             android:layout_height="@dimen/p70"></RelativeLayout>
 
         <RelativeLayout
@@ -39,6 +40,7 @@
         <ImageView
             android:id="@+id/light_id"
             android:layout_width="wrap_content"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/p36"
             android:layout_marginTop="@dimen/p24"
@@ -47,6 +49,7 @@
         <TextView
             android:id="@+id/lighttext_id"
             android:layout_width="wrap_content"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/p30"
             android:layout_marginTop="@dimen/p30"
@@ -59,19 +62,17 @@
             android:id="@+id/scene_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/light_id"
             android:layout_marginLeft="@dimen/p33"
-            android:layout_marginTop="@dimen/p39"
+            android:layout_marginTop="@dimen/p24"
             android:background="@drawable/homeaddcup" />
 
         <TextView
             android:id="@+id/scenetext_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lighttext_id"
             android:layout_marginLeft="@dimen/p26"
-            android:layout_marginTop="@dimen/p56"
-            android:layout_toRightOf="@+id/light_id"
+            android:layout_marginTop="@dimen/p30"
+            android:layout_toRightOf="@+id/scene_id"
             android:text="@string/daddscene"
             android:textColor="@color/e30"
             android:textSize="@dimen/p24" />
@@ -106,7 +107,7 @@
             android:layout_marginLeft="@dimen/p32"
             android:layout_marginTop="@dimen/p50"
             android:layout_marginBottom="@dimen/p20"
-            android:background="@drawable/edit_icon" />
+            android:background="@drawable/homeaddlamp" />
 
         <TextView
             android:id="@+id/select_dev_type_txt"
